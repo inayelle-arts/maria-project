@@ -1,1 +1,1 @@
-# MASHA Project Control System
+# MARIA Project Control System
