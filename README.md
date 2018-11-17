@@ -1,1 +1,1 @@
-# MARIA Project Control System
+# MARIA Project Management System

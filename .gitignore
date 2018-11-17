@@ -1,4 +1,7 @@
-/.idea/
-appsettings.json
-bin/
-obj/
+**/.idea/
+**/appsettings.json
+**/bin/
+**/obj/
+**/logs
+**/*.log
+**/node_modules/
