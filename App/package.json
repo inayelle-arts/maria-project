@@ -1,0 +1,10 @@
+{
+  "name": "maria-project",
+  "version": "0.0.0",
+  "description": "Project management system",
+  "main": "index.js",
+  "repository": "https://github.com/inayelle-arts/maria-project",
+  "author": ["Vladislav Kalashnikov-Travin", "Maria Gerasimova", "Albert Tashu"],
+  "license": "SUB",
+  "private": true
+}
