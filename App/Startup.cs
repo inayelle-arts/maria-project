@@ -27,7 +27,7 @@ namespace App
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Privet obed!");
+                await context.Response.WriteAsync("Privet, Masha!");
             });
         }
     }
