@@ -2,6 +2,6 @@
 **/appsettings.json
 **/bin/
 **/obj/
-**/logs
+**/(L|l)ogs
 **/*.log
 **/node_modules/

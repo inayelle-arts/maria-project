@@ -1,11 +1,12 @@
-﻿{  
-    "profiles":{  
-        "Api":{  
-            "commandName":"Project",
-            "launchBrowser":true,
-            "applicationUrl":"http://localhost:1488",
-            "environmentVariables":{  
-                "ASPNETCORE_ENVIRONMENT":"Development"
+﻿{
+    "$schema": "http://json.schemastore.org/launchsettings.json",
+    "profiles": {
+        "Api": {
+            "commandName": "Project",
+            "launchBrowser": false,
+            "applicationUrl": "http://localhost:1337",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
             }
         }
     }

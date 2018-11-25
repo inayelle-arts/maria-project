@@ -1,24 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace Api
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+	public class Program
+	{
+		private static readonly string AppRoot;
+		private static readonly string AppSettings;
+		private static readonly string LoggingSettings;
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-    }
+		static Program()
+		{
+			AppRoot = Directory.GetCurrentDirectory();
+
+			var configRoot = Path.Combine(AppRoot, "Config");
+
+			AppSettings     = Path.Combine(configRoot, "appsettings.json");
+			LoggingSettings = Path.Combine(configRoot, "serilog.json");
+		}
+
+		public static void Main(string[] args)
+		{
+			Log.Logger = CreateLogger();
+
+			var host = CreateWebHost(args);
+
+			host.Run();
+		}
+
+		public static IWebHost CreateWebHost(string[] args)
+		{
+			var config = new ConfigurationBuilder().AddJsonFile(AppSettings)
+			                                       .Build();
+
+			var hostBuilder = WebHost.CreateDefaultBuilder(args)
+			                         .UseWebRoot(AppRoot)
+			                         .ConfigureLogging(logging => logging.ClearProviders())
+			                         .CaptureStartupErrors(true)
+			                         .UseConfiguration(config)
+			                         .UseStartup<Startup>();
+
+			return hostBuilder.Build();
+		}
+
+		private static ILogger CreateLogger()
+		{
+			var config = new ConfigurationBuilder().AddJsonFile(LoggingSettings)
+			                                       .Build();
+
+			return new LoggerConfiguration().ReadFrom
+			                                .Configuration(config)
+			                                .CreateLogger();
+		}
+	}
 }
