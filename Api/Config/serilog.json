@@ -1,0 +1,13 @@
+{
+    "Serilog": {
+        "MinimumLevel": "Debug",
+        "Using": [
+            "Serilog.Sinks.ColoredConsole"
+        ],
+        "WriteTo": [
+            {
+                "Name": "Console"
+            }
+        ]
+    }
+}
