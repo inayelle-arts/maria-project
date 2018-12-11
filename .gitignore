@@ -5,3 +5,4 @@
 **/(L|l)ogs
 **/*.log
 **/node_modules/
+**/.vs/
