@@ -5,3 +5,6 @@
 **/(L|l)ogs
 **/*.log
 **/node_modules/
+**/*.sln.DotSettings.user
+App/Static/scripts/js/
+App/Static/styles/css/
