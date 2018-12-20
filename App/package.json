@@ -26,7 +26,7 @@
     },
     "scripts": {
         "build": "yarn run gulp",
-        "clean": "yarn run gulp cleanup",
+        "clean": "yarn run gulp clean",
         "sass-watch": "yarn run gulp sass-watch",
         "ts-watch": "yarn run gulp ts-watch"
     }

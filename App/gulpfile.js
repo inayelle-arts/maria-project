@@ -69,10 +69,10 @@ gulp.task('prepare-fa', function () {
 });
 
 gulp.task('clean', function () {
-    gulp.src(`${destScripts}`, {read: false})
+    gulp.src(`${destScripts}/**/*`, {read: false})
         .pipe(remove());
 
-    return gulp.src(`${destStyles}`, {read: false})
+    return gulp.src(`${destStyles}/**/*`, {read: false})
                .pipe(remove());
 });
 
