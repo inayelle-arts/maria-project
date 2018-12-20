@@ -21,13 +21,17 @@
         "gulp-copy": "^4.0.1",
         "gulp-sass": "^4.0.2",
         "gulp-sync": "^0.1.4",
-        "gulp-typescript": "^5.0.0",
-        "typescript": "^3.2.2"
+        "path": "^0.12.7",
+        "ts-loader": "^5.3.1",
+        "typescript": "^3.2.2",
+        "vinyl-source-stream": "^2.0.0",
+        "webpack": "^4.28.1",
+        "webpack-cli": "^3.1.2"
     },
     "scripts": {
-        "build": "yarn run gulp",
+        "build": "yarn run gulp && yarn run webpack",
         "clean": "yarn run gulp clean",
         "sass-watch": "yarn run gulp sass-watch",
-        "ts-watch": "yarn run gulp ts-watch"
+        "ts-watch": "yarn run webpack --watch"
     }
 }
