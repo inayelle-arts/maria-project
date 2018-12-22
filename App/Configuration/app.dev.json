@@ -1,0 +1,6 @@
+{
+    "Environment": "Development",
+    "ConnectionStrings": {
+        "Default": "Server: localhost; Port: 5432; DbName: maria_project; Username: ina; Password: blessx375;"
+    }
+}
