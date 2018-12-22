@@ -23,7 +23,7 @@ function compileSass()
 
 function watchSass()
 {
-    return gulp.watch('./static/styles/scss/*.scss', 'sass');
+    return gulp.watch(`${srcStyles}/*.scss`, gulp.series(compileSass));
 }
 
 function prepareMaterialKit()
@@ -31,10 +31,9 @@ function prepareMaterialKit()
     gulp.src(`${librariesRoot}/material-kit/assets/js/material-kit.js`)
         .pipe(gulp.dest(`${destScripts}/material-kit`));
 
-
     return gulp.src(
-        `${librariesRoot}/material-kit/assets/scss/**/*`)
-               .pipe(gulp.dest(`${srcStyles}/material-kit`));
+        `${librariesRoot}/material-kit/assets/css/material-kit.css`)
+               .pipe(gulp.dest(`${destStyles}/material/css`));
 }
 
 function prepareJquery()

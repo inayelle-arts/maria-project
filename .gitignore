@@ -6,6 +6,7 @@
 **/*.log
 **/node_modules/
 **/*.*.DotSettings.user
+**/*.DotSettings
 App/Static/scripts/js/
 App/Static/styles/css/
 App/Static/styles/scss/material-kit/

@@ -37,6 +37,13 @@ namespace App
 						"/",
 						new { controller = "index", action = "index" }
 				);
+				
+				router.MapRoute
+				(
+						"board",
+						"/b",
+						new { controller = "board", action = "index" }
+				);
 
 				router.MapRoute
 				(

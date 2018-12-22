@@ -1,5 +1,5 @@
 @{
-    ViewBag.Title = "Maria";
+    ViewBag.Title = ViewBag.Title ?? "Maria";
 }
 
 <!DOCTYPE HTML>
@@ -7,13 +7,66 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css"/>
+    <link href="~/styles/css/material/css/material-kit.css" rel="stylesheet" type="text/css"/>
+    <link href="~/styles/css/fontawesome/all.css" rel="stylesheet" type="text/css"/>
+    <link href="~/styles/css/layout.css" rel="stylesheet" type="text/css" asp-append-version="true"/>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-@RenderBody()
-<script type="text/javascript" src="~/scripts/js/jquery/jquery.js"></script>
-<script type="text/javascript" src="~/scripts/js/jquery/jquery.validate.js"></script>
-<script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js"></script>
-<script type="text/javascript" src="~/scripts/js/bundle.js"></script>
+
+<header>
+    <nav>
+        <div class="container-fluid">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-6 col-lg-3 offset-lg-1">
+                    <a href="/">
+                        <img class="logo-image" src="~/img/layout/logo.jpg" alt="logo"/>
+                        <div>
+                            <div class="logo-text">
+                                MARIA
+                            </div>
+                            <div class="logo-subtext">
+                                Project management system
+                            </div>
+                            <div class="logo-slogan">
+                                from coders to coders with
+                                <i class="material-icons" style="font-size: 12px;">
+                                    favorite
+                                </i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="btn-group header-links">
+                        <a class="btn">
+                            Profile
+                        </a>
+                        <a class="btn">
+                            Projects
+                        </a>
+                        <a class="btn">
+                            Recents
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div id="content">
+    @RenderBody()
+</div>
+
+<footer>
+
+</footer>
+
+<script type="text/javascript" src="~/scripts/js/jquery/jquery.js" defer></script>
+<script type="text/javascript" src="~/scripts/js/jquery/jquery.validate.js" defer></script>
+<script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js" defer></script>
+<script type="text/javascript" src="~/scripts/js/bundle.js" defer></script>
 </body>
 </html>
