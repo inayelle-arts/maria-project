@@ -21,7 +21,6 @@
     <Folder Include="Entities" />
     <Folder Include="Static\img" />
     <Folder Include="Static\styles\css" />
-    <Folder Include="Static\styles\scss" />
   </ItemGroup>
 
 </Project>

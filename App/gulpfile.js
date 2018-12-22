@@ -14,35 +14,41 @@ const srcStyles = `${staticRoot}/styles/scss`;
 const destScripts = `${staticRoot}/scripts/js`;
 const destStyles = `${staticRoot}/styles/css`;
 
-gulp.task('sass', function () {
-    return gulp.src(`${srcStyles}/**/*.scss`)
+function compileSass()
+{
+    return gulp.src(`${srcStyles}/*.scss`)
                .pipe(sass().on('error', sass.logError))
                .pipe(gulp.dest(destStyles));
-});
+}
 
-gulp.task('sass-watch', function () {
+function watchSass()
+{
     return gulp.watch('./static/styles/scss/*.scss', 'sass');
-});
+}
 
-gulp.task('prepare-bootstrap', function () {
-    gulp.src(`${librariesRoot}/bootstrap/dist/js/bootstrap.js`)
-        .pipe(gulp.dest(`${destScripts}/bootstrap`));
+function prepareMaterialKit()
+{
+    gulp.src(`${librariesRoot}/material-kit/assets/js/material-kit.js`)
+        .pipe(gulp.dest(`${destScripts}/material-kit`));
 
 
-    return gulp.src(`${librariesRoot}/bootstrap/dist/css/bootstrap.css`)
-               .pipe(gulp.dest(`${destStyles}/bootstrap`));
-});
+    return gulp.src(
+        `${librariesRoot}/material-kit/assets/scss/**/*`)
+               .pipe(gulp.dest(`${srcStyles}/material-kit`));
+}
 
-gulp.task('prepare-jquery', function () {
+function prepareJquery()
+{
     gulp.src(`${librariesRoot}/jquery/dist/jquery.js`)
         .pipe(gulp.dest(`${destScripts}/jquery`));
 
     return gulp.src(
         `${librariesRoot}/jquery-validation/dist/jquery.validate.js`)
                .pipe(gulp.dest(`${destScripts}/jquery`));
-});
+}
 
-gulp.task('prepare-fa', function () {
+function prepareFontAwesome()
+{
     const fontAwesomeRoot = `${librariesRoot}/@fortawesome/fontawesome-free`;
     const fontAwesomeDest = `${destStyles}/fontawesome`;
 
@@ -52,21 +58,37 @@ gulp.task('prepare-fa', function () {
 
     return gulp.src(`${fontAwesomeRoot}/webfonts/*`)
                .pipe(gulp.dest(`${destStyles}/webfonts`));
-});
+}
 
-gulp.task('clean', function () {
-    gulp.src(`${destScripts}/**/*`, {read: false, allowEmpty: true})
+function clean()
+{
+    gulp.src(`${destScripts}/**/`, {read: false, allowEmpty: true})
         .pipe(remove());
 
-    return gulp.src(`${destStyles}/**/*`, {read: false})
+    gulp.src(`${srcStyles}/material-kit/`, {read: false, allowEmpty: true})
+        .pipe(remove());
+
+    return gulp.src(`${destStyles}/**/`, {read: false})
                .pipe(remove());
-});
+}
+
+gulp.task('sass', gulp.series(compileSass));
+
+gulp.task('sass-watch', gulp.series(watchSass));
+
+gulp.task('prepare-material-kit', gulp.series(prepareMaterialKit));
+
+gulp.task('prepare-jquery', gulp.series(prepareJquery));
+
+gulp.task('prepare-fa', gulp.series(prepareFontAwesome));
+
+gulp.task('clean', gulp.series(clean));
 
 gulp.task(
     'build',
     gulp.series(
         'prepare-fa',
-        'prepare-bootstrap',
+        'prepare-material-kit',
         'prepare-jquery',
         'sass'
     )

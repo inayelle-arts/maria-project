@@ -5,7 +5,8 @@
 **/(L|l)ogs
 **/*.log
 **/node_modules/
-**/*.sln.DotSettings.user
+**/*.*.DotSettings.user
 App/Static/scripts/js/
 App/Static/styles/css/
+App/Static/styles/scss/material-kit/
 App/Configuration/app.*.json
