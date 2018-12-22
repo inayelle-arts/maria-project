@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Configuration" />
     <Folder Include="Entities" />
     <Folder Include="Static\img" />
     <Folder Include="Static\styles\css" />
