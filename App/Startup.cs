@@ -1,24 +1,50 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using App.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App
 {
-	public class Startup
+	public class Startup : StartupBase
 	{
-		public void ConfigureServices(IServiceCollection services)
+		public IConfiguration      Configuration { get; }
+		public IHostingEnvironment Environment   { get; }
+
+		public Startup(IConfiguration configuration, IHostingEnvironment environment)
 		{
+			Configuration = configuration;
+			Environment   = environment;
 		}
 
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public override void ConfigureServices(IServiceCollection services)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+			services.AddDefaultContext(Configuration);
+			services.AddMvc();
+		}
 
-			app.Run(async (context) => { await context.Response.WriteAsync("Privet, Alik!"); });
+		public override void Configure(IApplicationBuilder app)
+		{
+			app.ConfigureErrorHandling(Environment);
+
+			app.UseStaticFiles();
+
+			app.UseMvc(router =>
+			{
+				router.MapRoute
+				(
+						"index",
+						"/",
+						new { controller = "index", action = "index" }
+				);
+
+				router.MapRoute
+				(
+						"mvc",
+						"{controller}/{action?}",
+						new { action = "index" }
+				);
+			});
 		}
 	}
 }
