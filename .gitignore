@@ -8,3 +8,4 @@
 **/*.sln.DotSettings.user
 App/Static/scripts/js/
 App/Static/styles/css/
+App/Configuration/app.*.json
