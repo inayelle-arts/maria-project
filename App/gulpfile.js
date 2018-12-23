@@ -37,6 +37,12 @@ function prepareMaterialKit()
                .pipe(gulp.dest(`${srcStyles}/material-kit`));
 }
 
+function prepareTypedJson()
+{
+    return gulp.src(`${librariesRoot}/typedjson/js/typedjson.js`)
+               .pipe(gulp.dest(`${destScripts}`));
+}
+
 function prepareJquery()
 {
     gulp.src(`${librariesRoot}/jquery/dist/jquery.js`)
@@ -82,6 +88,8 @@ gulp.task('prepare-jquery', gulp.series(prepareJquery));
 
 gulp.task('prepare-fa', gulp.series(prepareFontAwesome));
 
+gulp.task('prepare-typedjson', gulp.series(prepareTypedJson));
+
 gulp.task('clean', gulp.series(clean));
 
 gulp.task(
@@ -90,6 +98,7 @@ gulp.task(
         'prepare-fa',
         'prepare-material-kit',
         'prepare-jquery',
+        'prepare-typedjson',
         'sass'
     )
 );
