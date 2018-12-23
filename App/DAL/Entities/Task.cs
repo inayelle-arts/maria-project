@@ -15,9 +15,9 @@ namespace App.DAL.Entities
         [Required]
         public string Code { get; set; }
 
-        public virtual List<Label> Labels { get; set; }
-        public virtual List<Comment> Comments{ get; set; }
-        public virtual List<ConstraintRecord> Constraints { get; set; }
+        public virtual ICollection<Label> Labels { get; set; }
+        public virtual ICollection<Comment> Comments{ get; set; }
+        public virtual ICollection<ConstraintRecord> Constraints { get; set; }
        
         //todo: allow multiple assignees
         public User Assignee { get; set; }

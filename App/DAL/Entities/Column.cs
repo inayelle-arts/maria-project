@@ -13,7 +13,7 @@ namespace App.DAL.Entities
         public string Name { get; set; }
         public int BoardId { get; set; }
         public virtual BoardBase Board { get; set; }
-        public virtual List<ConstraintRecord> Constraints { get; set; }
-        public virtual List<Task> Tasks { get; set; }
+        public virtual ICollection<ConstraintRecord> Constraints { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

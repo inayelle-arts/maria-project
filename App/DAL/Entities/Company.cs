@@ -18,7 +18,7 @@ namespace App.DAL.Entities
         
         //todo:paymentInfo
 
-        public virtual List<Cooperation> Cooperations { get; set; }
+        public virtual ICollection<Cooperation> Cooperations { get; set; }
 
     }
 }

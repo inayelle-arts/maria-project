@@ -8,6 +8,6 @@ namespace App.DAL.Entities
     public class History
     {
         public int Id { get; set; }
-        public virtual List<HistoryPoint> Events { get; set; }
+        public virtual ICollection<HistoryPoint> Events { get; set; }
     }
 }

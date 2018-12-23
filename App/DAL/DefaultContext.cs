@@ -7,7 +7,6 @@ namespace App.DAL
 	{
 		public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
 		{
-		    //Database.EnsureCreated();
 		}
 
 	    public DbSet<Company> Companies { get; set; }

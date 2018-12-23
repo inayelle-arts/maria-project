@@ -16,9 +16,9 @@ namespace App.DAL.Entities
         public string Fullname { get; set; }
         public string PasswordHash { get; set; }
 
-        public virtual List<Cooperation> CompanyCooperations { get; set; }
-        public virtual List<ContactInfo> Contacts { get; set; }
-        public virtual List<Project> Projects { get; set; }
-        public virtual List<Teams2Users> TeamUserPairs { get; set; }
+        public virtual ICollection<Cooperation> CompanyCooperations { get; set; }
+        public virtual ICollection<ContactInfo> Contacts { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Teams2Users> TeamUserPairs { get; set; }
     }
 }

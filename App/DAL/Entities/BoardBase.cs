@@ -15,8 +15,8 @@ namespace App.DAL.Entities
 
         public int TeamId { get; set; }
         public virtual Team Team { get; set; }
-        public virtual List<Label> Labels { get; set; }
-        public virtual List<Column> Columns { get; set; }
-        public virtual List<ConstraintRecord> Constraints { get; set; }
+        public virtual ICollection<Label> Labels { get; set; }
+        public virtual ICollection<Column> Columns { get; set; }
+        public virtual ICollection<ConstraintRecord> Constraints { get; set; }
     }
 }

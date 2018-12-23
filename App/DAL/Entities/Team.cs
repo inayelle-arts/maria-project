@@ -12,7 +12,7 @@ namespace App.DAL.Entities
         [Required]
         public string Name { get; set; }
 
-        public virtual List<Teams2Users> TeamUserPairs { get; set; }
+        public virtual ICollection<Teams2Users> TeamUserPairs { get; set; }
 
         public virtual Company Company { get; set; }
         public int CompanyId { get; set; }

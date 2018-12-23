@@ -7,6 +7,6 @@ namespace App.DAL.Entities
 {
     public class KanbanTask : Task
     {
-        public double StoryPointsSpent { get; set; }
+        public int StoryPointsSpent { get; set; }
     }
 }

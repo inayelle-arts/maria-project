@@ -14,13 +14,13 @@ namespace App.DAL.Entities
         [Required]
         public string  Description { get; set; }
 
-        public virtual List<Team> Teams { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
 
         public virtual User ProjectRoot { get; set; }
         public int ProjectRootId { get; set; }
 
-        public virtual RequirementList RequirementList { get; set; }
-        public int RequirementListId { get; set; }
+        public virtual RequirementICollection RequirementICollection { get; set; }
+        public int RequirementICollectionId { get; set; }
 
         public virtual ProjectBacklog Backlog { get; set; }
         public int BacklogId { get; set; }
