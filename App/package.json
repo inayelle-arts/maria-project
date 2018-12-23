@@ -1,10 +1,37 @@
 {
-  "name": "maria-project",
-  "version": "0.0.0",
-  "description": "Project management system",
-  "main": "index.js",
-  "repository": "https://github.com/inayelle-arts/maria-project",
-  "author": ["Vladislav Kalashnikov-Travin", "Maria Gerasimova", "Albert Tashu"],
-  "license": "SUB",
-  "private": true
+    "name": "maria-project",
+    "version": "0.0.1",
+    "description": "Project management system",
+    "main": "index.js",
+    "repository": "https://github.com/inayelle-arts/maria-project",
+    "author": "Maria Team",
+    "license": "SUB",
+    "private": true,
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.6.3",
+        "jquery": "^3.3.1",
+        "jquery-validation": "^1.19.0",
+        "material-kit": "^2.0.4"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.3.28",
+        "@types/jquery.validation": "^1.16.5",
+        "gulp": "^4.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-copy": "^4.0.1",
+        "gulp-sass": "^4.0.2",
+        "gulp-sync": "^0.1.4",
+        "path": "^0.12.7",
+        "ts-loader": "^5.3.1",
+        "typescript": "^3.2.2",
+        "vinyl-source-stream": "^2.0.0",
+        "webpack": "^4.28.1",
+        "webpack-cli": "^3.1.2"
+    },
+    "scripts": {
+        "build": "yarn run gulp && yarn run webpack",
+        "clean": "yarn run gulp clean",
+        "sass-watch": "yarn run gulp sass-watch",
+        "ts-watch": "yarn run webpack --watch"
+    }
 }

@@ -1,34 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using App.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App
 {
-    public class Startup
-    {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-        }
+	public class Startup : StartupBase
+	{
+		public IConfiguration      Configuration { get; }
+		public IHostingEnvironment Environment   { get; }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+		public Startup(IConfiguration configuration, IHostingEnvironment environment)
+		{
+			Configuration = configuration;
+			Environment   = environment;
+		}
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Privet, Alik!");
-            });
-        }
-    }
+		public override void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDefaultContext(Configuration);
+			services.AddMvc();
+		}
+
+		public override void Configure(IApplicationBuilder app)
+		{
+			app.ConfigureErrorHandling(Environment);
+
+			app.UseStaticFiles();
+
+			app.UseMvc(router =>
+			{
+				router.MapRoute
+				(
+						"index",
+						"/",
+						new { controller = "index", action = "index" }
+				);
+
+				router.MapRoute
+				(
+						"mvc",
+						"{controller}/{action?}",
+						new { action = "index" }
+				);
+			});
+		}
+	}
 }

@@ -6,3 +6,8 @@
 **/*.log
 **/node_modules/
 **/.vs/
+**/*.*.DotSettings.user
+App/Static/scripts/js/
+App/Static/styles/css/
+App/Static/styles/scss/material-kit/
+App/Configuration/app.*.json

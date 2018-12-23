@@ -1,12 +1,12 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Api.Extensions
+namespace App.Extensions
 {
 	internal static class ApplicationBuilderExtensions
 	{
-		public static IApplicationBuilder ConfigureErrorHandling(this IApplicationBuilder app,
-		                                                         IHostingEnvironment      environment)
+		public static void ConfigureErrorHandling(this IApplicationBuilder app, IHostingEnvironment environment)
 		{
 			switch (environment.EnvironmentName)
 			{
@@ -16,13 +16,16 @@ namespace Api.Extensions
 					app.UseDatabaseErrorPage();
 					break;
 				}
+				case "Production":
+				case "Staging":
+				{
+					break;
+				}
 				default:
 				{
 					break;
 				}
 			}
-
-			return app;
 		}
 	}
 }
