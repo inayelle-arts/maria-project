@@ -10,6 +10,7 @@ namespace App.DAL.Entities
     {
         public int Id { get; set; }
         [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
         [Required]
         public string  Description { get; set; }
@@ -19,8 +20,8 @@ namespace App.DAL.Entities
         public virtual User ProjectRoot { get; set; }
         public int ProjectRootId { get; set; }
 
-        public virtual RequirementICollection RequirementICollection { get; set; }
-        public int RequirementICollectionId { get; set; }
+        public virtual RequirementList RequirementList { get; set; }
+        public int RequirementListId { get; set; }
 
         public virtual ProjectBacklog Backlog { get; set; }
         public int BacklogId { get; set; }

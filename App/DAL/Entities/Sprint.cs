@@ -14,7 +14,6 @@ namespace App.DAL.Entities
 
 
         public virtual ScrumBoard Board{ get; set; }
-        public int BoardId { get; set; }
         public virtual SprintBacklog Backlog { get; set; }
         public int  SprintBacklogId { get; set; }
     }

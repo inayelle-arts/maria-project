@@ -3,15 +3,17 @@ using System;
 using App.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace App.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20181223191420_ChangedInheritanceStrategy")]
+    partial class ChangedInheritanceStrategy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,7 @@ namespace App.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("Priority");
 
@@ -70,8 +71,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("TeamId");
 
@@ -92,8 +92,7 @@ namespace App.Migrations
                     b.Property<int>("BoardId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -139,8 +138,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -157,8 +155,7 @@ namespace App.Migrations
                     b.Property<int?>("ColumnId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int?>("TaskId");
 
@@ -251,8 +248,7 @@ namespace App.Migrations
 
                     b.Property<int>("BoardId");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255);
+                    b.Property<string>("Name");
 
                     b.Property<int?>("TaskId");
 
@@ -278,12 +274,11 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("ProjectRootId");
 
-                    b.Property<int>("RequirementListId");
+                    b.Property<int>("RequirementICollectionId");
 
                     b.HasKey("Id");
 
@@ -294,7 +289,7 @@ namespace App.Migrations
 
                     b.HasIndex("ProjectRootId");
 
-                    b.HasIndex("RequirementListId")
+                    b.HasIndex("RequirementICollectionId")
                         .IsUnique();
 
                     b.ToTable("Projects");
@@ -318,30 +313,27 @@ namespace App.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("Priority");
 
                     b.Property<int>("RequirementICollectionId");
 
-                    b.Property<int?>("RequirementListId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RequirementListId");
+                    b.HasIndex("RequirementICollectionId");
 
                     b.ToTable("Requirement");
                 });
 
-            modelBuilder.Entity("App.DAL.Entities.RequirementList", b =>
+            modelBuilder.Entity("App.DAL.Entities.RequirementICollection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequirementList");
+                    b.ToTable("RequirementICollection");
                 });
 
             modelBuilder.Entity("App.DAL.Entities.Sprint", b =>
@@ -397,8 +389,7 @@ namespace App.Migrations
                     b.Property<int>("HistoryId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -423,8 +414,7 @@ namespace App.Migrations
                     b.Property<int>("CompanyId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("ProjectId");
 
@@ -464,8 +454,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<string>("PasswordHash");
 
@@ -649,17 +638,18 @@ namespace App.Migrations
                         .HasForeignKey("ProjectRootId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("App.DAL.Entities.RequirementList", "RequirementList")
+                    b.HasOne("App.DAL.Entities.RequirementICollection", "RequirementICollection")
                         .WithOne("Project")
-                        .HasForeignKey("App.DAL.Entities.Project", "RequirementListId")
+                        .HasForeignKey("App.DAL.Entities.Project", "RequirementICollectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("App.DAL.Entities.Requirement", b =>
                 {
-                    b.HasOne("App.DAL.Entities.RequirementList", "RequirementList")
+                    b.HasOne("App.DAL.Entities.RequirementICollection", "RequirementICollection")
                         .WithMany("Requirements")
-                        .HasForeignKey("RequirementListId");
+                        .HasForeignKey("RequirementICollectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("App.DAL.Entities.Sprint", b =>
