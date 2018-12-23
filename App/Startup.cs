@@ -1,8 +1,11 @@
 ﻿using App.Extensions;
+using App.Services.Classes;
+using App.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace App
 {
@@ -20,12 +23,13 @@ namespace App
 		public override void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDefaultContext(Configuration);
+            services.AddSingleton<IDbInitializerService,TestDbInitializerService>();
 			services.AddMvc();
 		}
 
 		public override void Configure(IApplicationBuilder app)
 		{
-			app.ConfigureErrorHandling(Environment);
+			app.EnvironmentDependentConfiguration(Environment);
 
 			app.UseStaticFiles();
 
@@ -46,5 +50,6 @@ namespace App
 				);
 			});
 		}
+
 	}
 }

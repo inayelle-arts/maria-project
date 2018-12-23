@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.DAL.Entities
 {
-    public abstract class BoardBase
+    public class BoardBase
     {
         public int Id { get; set; }
         [Required]
