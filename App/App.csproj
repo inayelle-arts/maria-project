@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BL\" />
     <Folder Include="Static\img" />
     <Folder Include="Static\styles\css" />
   </ItemGroup>

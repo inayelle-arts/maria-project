@@ -12,7 +12,7 @@ namespace App.DAL.Entities
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public BoardBase Board { get; set; }
+        public Board Board { get; set; }
         public int BoardId { get; set; }    
     }
 }
