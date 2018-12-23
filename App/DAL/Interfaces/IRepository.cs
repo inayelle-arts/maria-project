@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 
 namespace App.DAL.Interfaces
 {
-    interface IRepository
+    interface IRepository<T> where T : class
     {
+        IQueryable<T> GetAll();
+        T Get(int id);
+        void Update(T entity);
+        void Create(T entity);
+        void Delete(int id);
     }
 }

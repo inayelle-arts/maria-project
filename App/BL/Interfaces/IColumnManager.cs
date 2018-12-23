@@ -6,12 +6,14 @@ using Task = System.Threading.Tasks.Task;
 
 namespace App.DAL.Interfaces
 {
-    interface ColumnManager
+    internal interface IColumnManager
+
     {
-        void AddTask(Task task);
+    void AddTask(Task task);
 
-        void EditColumn(Column column);
+    void EditColumn(Column column);
 
-        void DeleteColumn(int id);
+    void DeleteColumn(int id);
+
     }
 }

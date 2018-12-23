@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace App.DAL.Entities
 {
     [Table("ScrumBoards")]
-    public class ScrumBoard:BoardBase
+    public class ScrumBoard:Board
     {
         public virtual Sprint CurrentSprint { get; set; }
         public int CurrentSprintId { get; set; }

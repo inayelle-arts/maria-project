@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace App.DAL.Interfaces
 {
-    public class ITaskManager
+    internal interface ITaskManager
     {
+        void EditTask(Task task);
+        void ArchiveTask(int id);
     }
 }

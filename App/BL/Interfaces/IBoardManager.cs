@@ -7,12 +7,12 @@ using Task = System.Threading.Tasks.Task;
 
 namespace App.DAL.Interfaces
 {
-    interface BoardManager
+    interface IBoardManager
     {
         void AddColumn(Column column);
 
-        void EditBoard(BoardBase board);
+        void EditBoard(Board board);
 
-        void ArchiveBoard(BoardBase board);
+        void ArchiveBoard(Board board);
     }
 }

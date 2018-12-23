@@ -6,8 +6,6 @@ using App.DAL;
 using App.DAL.Entities;
 using App.Services.Interfaces;
 
-using AsyncTask = System.Threading.Tasks.Task;
-
 namespace App.Services.Classes
 {
     internal class TestDbInitializerService:IDbInitializerService
@@ -67,7 +65,7 @@ namespace App.Services.Classes
                     StartOfCooperation = DateTime.Now,
                 };
 
-                BoardBase board = new BoardBase()
+                Board board = new Board()
                 {
                     Team = team,
                     Name = "maria_demo",

@@ -8,7 +8,7 @@ namespace App.DAL.Entities
 {
 
     [Table("KanbanBoards")]
-    public class KanbanBoard : BoardBase
+    public class KanbanBoard : Board
     {
     }
 }
