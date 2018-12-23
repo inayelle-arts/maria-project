@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace App.DAL.Entities
+{
+    public class Requirement
+    {
+        public int  Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public string  Description { get; set; }
+        public int  Priority { get; set; }
+
+        public virtual RequirementICollection RequirementICollection { get; set; }
+        public int RequirementICollectionId { get; set; }
+        public virtual ICollection<BacklogTask> Tasks { get; set; }
+    }
+}

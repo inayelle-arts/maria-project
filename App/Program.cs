@@ -24,10 +24,10 @@ namespace App
 		{
 			var host = CreateWebHostBuilder(args);
 
-			host.Run();
+			host.Build().Run();
 		}
 
-		private static IWebHost CreateWebHostBuilder(string[] args)
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 		{
 			var configuration = CreateConfiguration();
 
@@ -36,8 +36,7 @@ namespace App
 			              .UseContentRoot(AppRoot)
 			              .UseWebRoot(WebRoot)
 			              .UseConfiguration(configuration)
-			              .UseStartup<Startup>()
-			              .Build();
+			              .UseStartup<Startup>();
 		}
 
 		private static IConfiguration CreateConfiguration()
