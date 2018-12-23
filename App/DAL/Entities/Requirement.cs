@@ -15,7 +15,7 @@ namespace App.DAL.Entities
         public string  Description { get; set; }
         public int  Priority { get; set; }
 
-        public virtual RequirementICollection RequirementICollection { get; set; }
+        public virtual RequirementList RequirementICollection { get; set; }
         public int RequirementICollectionId { get; set; }
         public virtual ICollection<BacklogTask> Tasks { get; set; }
     }

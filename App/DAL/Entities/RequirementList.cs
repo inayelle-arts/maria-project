@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace App.DAL.Entities
 {
-    public class RequirementICollection
+    public class RequirementList
     {
         public int Id { get; set; }
 
