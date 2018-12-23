@@ -9,11 +9,14 @@
     <div class="board-row">
         <div class="board-row-header container-fluid">
             <div class="row justify-content-between align-items-center">
-                <div class="col">
+                <div class="col-11 board-title">
                     Todo
                 </div>
-                <div class="col">
+                <div class="col-1">
                     <div class="btn-group row-actions">
+                        <div class="btn btn-sm">
+                            <i class="material-icons">add</i>
+                        </div>
                         <div class="btn btn-sm">
                             <i class="material-icons">settings</i>
                         </div>
@@ -22,7 +25,7 @@
             </div>
         </div>
         <hr style="margin: 15px;"/>
-        <div class="board-column-content">
+        <div class="board-row-content">
             <div class="card task-card">
                 <div class="card-body task-card-content">
                     <h5 class="card-title">
@@ -66,20 +69,32 @@
             </div>
         </div>
     </div>
+    
     <div class="board-row">
-        <div class="board-row-header">
-            In progress
+        <div class="board-row-header container-fluid">
+            <div class="row justify-content-between align-items-center">
+                <div class="col board-title">
+                    In progress
+                </div>
+                <div class="col">
+                    <div class="btn-group row-actions">
+                        <div class="btn btn-sm">
+                            <i class="material-icons">settings</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <hr style="margin: 15px;"/>
-        <div class="board-column-content">
+        <div class="board-row-content">
             <div class="card task-card">
                 <div class="card-body task-card-content">
                     <h5 class="card-title">
                         <div class="task-card-title">
-                            Task 01
+                            Task 1
                         </div>
                         <div class="task-card-code">
-                            #9912
+                            #9985
                         </div>
                     </h5>
                     <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
@@ -90,10 +105,24 @@
                 <div class="card-body task-card-content">
                     <h5 class="card-title">
                         <div class="task-card-title">
-                            Task 02
+                            Task 2
                         </div>
                         <div class="task-card-code">
-                            #9911
+                            #9986
+                        </div>
+                    </h5>
+                    <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
+                </div>
+            </div>
+
+            <div class="card task-card">
+                <div class="card-body task-card-content">
+                    <h5 class="card-title">
+                        <div class="task-card-title">
+                            Task 3
+                        </div>
+                        <div class="task-card-code">
+                            #9987
                         </div>
                     </h5>
                     <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
@@ -102,75 +131,6 @@
         </div>
     </div>
 
-    <div class="board-row">
-        <div class="board-row-header">
-            Review
-        </div>
-        <hr style="margin: 15px;"/>
-        <div class="board-column-content">
-            <div class="card task-card">
-                <div class="card-body task-card-content">
-                    <h5 class="card-title">
-                        <div class="task-card-title">
-                            Task 01
-                        </div>
-                        <div class="task-card-code">
-                            #9912
-                        </div>
-                    </h5>
-                    <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
-                </div>
-            </div>
-
-            <div class="card task-card">
-                <div class="card-body task-card-content">
-                    <h5 class="card-title">
-                        <div class="task-card-title">
-                            Task 02
-                        </div>
-                        <div class="task-card-code">
-                            #9911
-                        </div>
-                    </h5>
-                    <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="board-row">
-        <div class="board-row-header">
-            Mmm danone
-        </div>
-        <hr style="margin: 15px;"/>
-        <div class="board-column-content">
-            <div class="card task-card">
-                <div class="card-body task-card-content">
-                    <h5 class="card-title">
-                        <div class="task-card-title">
-                            Task 01
-                        </div>
-                        <div class="task-card-code">
-                            #9912
-                        </div>
-                    </h5>
-                    <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
-                </div>
-            </div>
-
-            <div class="card task-card">
-                <div class="card-body task-card-content">
-                    <h5 class="card-title">
-                        <div class="task-card-title">
-                            Task 02
-                        </div>
-                        <div class="task-card-code">
-                            #9911
-                        </div>
-                    </h5>
-                    <p class="card-text task-card-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+<script type="text/javascript" src="~/scripts/js/board.js" defer></script>

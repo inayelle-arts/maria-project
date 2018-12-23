@@ -5,7 +5,10 @@ const tsOutputDir = path.resolve('./Static/scripts/js');
 
 module.exports = {
     mode: 'development',
-    entry: `${tsSourcesDir}/main.ts`,
+    entry: {
+        'main': `${tsSourcesDir}/main.ts`,
+        'board': `${tsSourcesDir}/board.ts`
+    },
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.js']
     },
@@ -13,13 +16,31 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
+                include: [`${tsSourcesDir}`],
                 exclude: /node_modules/,
-                use: 'ts-loader'
-            }
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        instance: 'main',
+                        configFile: `${tsSourcesDir}/tsconfig.json`
+                    }
+                }
+            },
+            {
+                test: /\.ts$/,
+                include: [`${tsSourcesDir}/board`],
+                exclude: /node_modules/,
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        instance: 'board',
+                        configFile: `${tsSourcesDir}/tsconfig.json`
+                    }
+                }
+            },
         ]
     },
     output: {
-        filename: 'bundle.js',
         path: tsOutputDir
     },
     watchOptions: {
