@@ -13,6 +13,7 @@ namespace App.DAL.Entities
         [EmailAddress]
         public string Email { get; set; }
         [Required]
+        [MaxLength(255)]
         public string Fullname { get; set; }
         public string PasswordHash { get; set; }
 

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace App.DAL.Entities
 {
-    public class BoardBase
+    public abstract class BoardBase
     {
         public int Id { get; set; }
         [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
 
         public int TeamId { get; set; }

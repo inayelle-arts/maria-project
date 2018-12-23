@@ -11,6 +11,5 @@ namespace App.DAL.Entities
         public virtual ICollection<BacklogTask> Tasks { get; set; }
 
         public virtual Sprint Sprint { get; set; }
-        public int SprintId { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using App.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace App.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20181223191829_AddedNameMaxLength")]
+    partial class AddedNameMaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,7 @@ namespace App.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("Priority");
 
@@ -70,8 +71,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("TeamId");
 
@@ -92,8 +92,7 @@ namespace App.Migrations
                     b.Property<int>("BoardId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -139,8 +138,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -157,8 +155,7 @@ namespace App.Migrations
                     b.Property<int?>("ColumnId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int?>("TaskId");
 
@@ -251,8 +248,7 @@ namespace App.Migrations
 
                     b.Property<int>("BoardId");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255);
+                    b.Property<string>("Name");
 
                     b.Property<int?>("TaskId");
 
@@ -278,8 +274,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("ProjectRootId");
 
@@ -318,8 +313,7 @@ namespace App.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("Priority");
 
@@ -395,8 +389,7 @@ namespace App.Migrations
                     b.Property<int>("HistoryId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -421,8 +414,7 @@ namespace App.Migrations
                     b.Property<int>("CompanyId");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<int>("ProjectId");
 
@@ -462,8 +454,7 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .IsRequired();
 
                     b.Property<string>("PasswordHash");
 
