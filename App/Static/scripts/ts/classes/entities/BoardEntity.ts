@@ -15,6 +15,11 @@ export class BoardEntity extends EntityBase
 		this._columns = columns;
 	}
 	
+	get Id() : number
+	{
+		return this._id;
+	}
+	
 	get Columns(): ColumnEntity[]
 	{
 		return this._columns;

@@ -15,6 +15,11 @@ export class ColumnEntity extends EntityBase
 		this._tasks = tasks;
 	}
 	
+	public get Id() : number
+	{
+		return this._id;
+	}
+	
 	getName(): string
 	{
 		return this._name;
@@ -34,7 +39,7 @@ export class ColumnEntity extends EntityBase
 		return true;
 	}
 	
-	get tasks(): TaskEntity[]
+	get Tasks(): TaskEntity[]
 	{
 		return this._tasks;
 	}

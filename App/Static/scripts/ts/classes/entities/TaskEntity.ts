@@ -16,6 +16,11 @@ export class TaskEntity extends EntityBase
 		this._code = code;
 	}
 	
+	public get Id() : number
+	{
+		return this._id;
+	}
+	
 	getName(): string
 	{
 		return this._name;

@@ -1,6 +1,5 @@
-import {ComponentBase} from "./ComponentBase";
+import {ChildComponentBase} from "./base/ChildComponentBase";
 
-export class TaskComponent extends ComponentBase
+export class TaskComponent extends ChildComponentBase
 {
-	
 }

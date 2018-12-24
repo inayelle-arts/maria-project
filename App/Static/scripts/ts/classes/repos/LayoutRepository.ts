@@ -38,8 +38,6 @@ export class LayoutRepository
 	{
 		const url = LayoutRepository.LayoutUri + key;
 		
-		console.log("URL: " + url);
-		
 		return $.get(
 			{
 				url: url,

@@ -4,4 +4,7 @@ import {BoardComponent} from "../components/BoardComponent";
 
 export class BoardUnit extends UnitBase<BoardEntity, BoardComponent>
 {
+	protected initialize(): void
+	{
+	}
 }

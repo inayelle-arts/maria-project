@@ -1,5 +1,5 @@
-import {ComponentBase} from "./ComponentBase";
+import {ChildComponentBase} from "./base/ChildComponentBase";
 
-export class ColumnComponent extends ComponentBase
+export class ColumnComponent extends ChildComponentBase
 {
 }

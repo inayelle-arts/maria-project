@@ -4,4 +4,7 @@ import {TaskComponent} from "../components/TaskComponent";
 
 export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 {
+	protected initialize(): void
+	{
+	}
 }
