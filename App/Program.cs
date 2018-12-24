@@ -75,7 +75,7 @@ namespace App
 
 	    private static NLog.Logger CreateLogger()
 	    {
-	        NLog.LayoutRenderers.LayoutRenderer.Register("logsdirv", (logEvent) => LogsRoot);
+	        NLog.LayoutRenderers.LayoutRenderer.Register("logsdir", (logEvent) => LogsRoot);
 
             return NLogBuilder
                 .ConfigureNLog(NLogConfigFile)
