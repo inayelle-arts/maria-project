@@ -1,1 +1,55 @@
 @import "imports";
+
+a {
+	&:link, &:visited, &:active {
+		color: $foreground-color;
+	}
+	
+	&:hover {
+		color: darken($foreground-color, 5%);
+	}
+}
+
+html, body {
+	color: $secondary-foreground-color;
+	background-color: $background-color;
+	font-family: Quicksand, serif;
+	font-size: 18px;
+}
+
+header {
+	color: $foreground-color;
+	padding: 5px;
+	background-color: $header-background-color !important;
+}
+
+.logo-text {
+	vertical-align: top;
+	font-size: 24px;
+	display: inline;
+}
+
+.logo-subtext {
+	font-size: 14px;
+	display: inline;
+}
+
+.logo-slogan {
+	font-size: 12px;
+}
+
+.logo-image {
+	max-width: 50px;
+	max-height: 50px;
+	float: left;
+	margin-right: 5px;
+	border-radius: 25px;
+}
+
+.header-links {
+	text-align: right;
+	
+	.btn-group {
+		margin: 0;
+	}
+}

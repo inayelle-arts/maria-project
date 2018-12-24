@@ -1,2 +1,8 @@
-import {Board} from "./classes/entities/Board";
-const board = new Board(1, 'topkek', []);
+import {BoardController} from "./classes/BoardController";
+
+$(document).ready(function ()
+{
+	const controller = new BoardController();
+	
+	controller.testInitialize();
+});

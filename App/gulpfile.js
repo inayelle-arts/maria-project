@@ -23,7 +23,7 @@ function compileSass()
 
 function watchSass()
 {
-    return gulp.watch('./static/styles/scss/*.scss', 'sass');
+    return gulp.watch(`${srcStyles}/*.scss`, gulp.series(compileSass));
 }
 
 function prepareMaterialKit()

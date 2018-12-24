@@ -1,26 +1,38 @@
-export class Task
+import {EntityBase} from "./EntityBase";
+
+export class TaskEntity extends EntityBase
 {
-	private _id: number;
+	private readonly _id: number;
 	private _name: string;
 	private _description: string;
-	private _code: string;
+	private readonly _code: string;
 	
 	constructor(id: number, name: string, description: string, code: string)
 	{
+		super();
 		this._id = id;
 		this._name = name;
 		this._description = description;
 		this._code = code;
 	}
 	
-	get name(): string
+	getName(): string
 	{
 		return this._name;
 	}
 	
-	set name(value: string)
+	setName(value: string): boolean
 	{
+		const temp = this._name;
 		this._name = value;
+		
+		if (!this.save())
+		{
+			this._name = temp;
+			return false;
+		}
+		
+		return true;
 	}
 	
 	get description(): string
@@ -38,8 +50,8 @@ export class Task
 		return this._code;
 	}
 	
-	set code(value: string)
+	public save(): boolean
 	{
-		this._code = value;
+		return this.Manager.Task.update(this);
 	}
 }
