@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.DAL
 {
-	internal sealed class DefaultContext : DbContext
+	public sealed class DefaultContext : DbContext
 	{
 		public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
 		{
