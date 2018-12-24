@@ -4,7 +4,10 @@ export class ChildComponent extends ChildComponentBase
 {
 	constructor(id: string)
 	{
-		const layout = "<div class='child'>child content</div>";
+		const layout =
+			`<p class='child'>
+				child content
+			 </p>`;
 		super(id, layout);
 	}
 }

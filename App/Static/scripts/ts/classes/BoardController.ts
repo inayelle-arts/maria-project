@@ -31,6 +31,6 @@ export class BoardController
 		// const childComponent2 = new ChildComponent('' + 2);
 		
 		// mainComponent.addChild(childComponent1);
-		// mainComponent.addChild(childComponent2);
+		// mainComponent.addChild(childComponent2); 
 	}
 }

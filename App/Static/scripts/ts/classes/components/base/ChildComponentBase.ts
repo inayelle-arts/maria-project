@@ -1,6 +1,5 @@
-import {CompositeComponentBase, JAttribute, JProperty} from "./CompositeComponentBase";
 import {LayoutRepository} from "../../repos/LayoutRepository";
-import {JFactory} from "../JFactory";
+import {CompositeComponentBase} from "./CompositeComponentBase";
 
 export abstract class ChildComponentBase extends CompositeComponentBase
 {
@@ -11,16 +10,17 @@ export abstract class ChildComponentBase extends CompositeComponentBase
 	
 	private _parentComponent: CompositeComponentBase;
 	
-	private _html: string;
-	
 	protected constructor(id: string, layout: string)
 	{
-		super(id);
+		const tag = $(layout).prop('tagName');
+		const html = document.createElement(tag);
+		html.id = id;
+		html.innerHTML = $(layout).prop('innerHTML');
+		
+		super(id, html);
 		this._initId = id;
 		this._layout = layout;
 		this._parentComponent = null;
-		this._html = $(layout).attr('id', id).prop(JProperty.OuterHtml);
-		console.log('CTOR: ~' + this._html + '~');
 	}
 	
 	public set Parent(parentComponent: CompositeComponentBase)
@@ -33,26 +33,13 @@ export abstract class ChildComponentBase extends CompositeComponentBase
 			this.Id = this._initId;
 		}
 		
-		this._html = $(this._html).attr('id', this.Id).prop(JProperty.OuterHtml);
+		this.Dom.id = this.Id;
+		
 		this._parentComponent = parentComponent;
 	}
 	
 	public get Parent(): CompositeComponentBase
 	{
 		return this._parentComponent;
-	}
-	
-	public renderTo(component: CompositeComponentBase): void
-	{
-		this.Parent = component;
-		console.log('RENDERING ' + this.Id + ' to ' + component.Id);
-		component.InnerHtml += this._html;
-	}
-	
-	public unrender(): void
-	{
-		this._html = JFactory.getById(this.Id).prop(JProperty.OuterHtml);
-		JFactory.removeById(this.Id);
-		this.Parent = null;
 	}
 }
