@@ -7,7 +7,6 @@ using DataAccessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 using BoardTask = DataAccessLayer.Entities.Task;
-using Task = System.Threading.Tasks.Task;
 
 namespace TestApi.Controllers
 {
@@ -25,16 +24,8 @@ namespace TestApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BoardTask>>> Get()
         {
-            try
-            {
-                var query = await _taskRepository.GetAllAsync();
-                return query.ToList();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            var query = await _taskRepository.GetAllAsync();
+            return query.ToList();
         }
 
 
@@ -44,9 +35,5 @@ namespace TestApi.Controllers
             var task = await _taskRepository.GetAsync(id);
             return task;
         }
-
-
-
-
     }
 }
