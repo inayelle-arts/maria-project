@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class NullableFKTaskToBacklogTask : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +30,7 @@ namespace DataAccessLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Description = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,13 +74,25 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SprintBacklog",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SprintBacklog", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Email = table.Column<string>(nullable: false),
-                    Fullname = table.Column<string>(nullable: false),
+                    Fullname = table.Column<string>(maxLength: 255, nullable: false),
                     PasswordHash = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -114,7 +127,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Priority = table.Column<int>(nullable: false),
                     RequirementListId = table.Column<int>(nullable: false)
@@ -126,6 +139,28 @@ namespace DataAccessLayer.Migrations
                         name: "FK_Requirement_RequirementList_RequirementListId",
                         column: x => x.RequirementListId,
                         principalTable: "RequirementList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sprint",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    StoryPointsExpected = table.Column<int>(nullable: false),
+                    StoryPointsActual = table.Column<int>(nullable: false),
+                    SprintBacklogId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sprint", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sprint_SprintBacklog_SprintBacklogId",
+                        column: x => x.SprintBacklogId,
+                        principalTable: "SprintBacklog",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -185,7 +220,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: false),
                     ProjectRootId = table.Column<int>(nullable: false),
                     RequirementListId = table.Column<int>(nullable: false),
@@ -227,11 +262,12 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Priority = table.Column<int>(nullable: false),
                     RequirementId = table.Column<int>(nullable: false),
-                    ProjectBacklogId = table.Column<int>(nullable: true)
+                    ProjectBacklogId = table.Column<int>(nullable: true),
+                    SprintBacklogId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -248,6 +284,12 @@ namespace DataAccessLayer.Migrations
                         principalTable: "Requirement",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BacklogTask_SprintBacklog_SprintBacklogId",
+                        column: x => x.SprintBacklogId,
+                        principalTable: "SprintBacklog",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,7 +298,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
                     ProjectId = table.Column<int>(nullable: false)
                 },
@@ -283,8 +325,10 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
-                    TeamId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    TeamId = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    CurrentSprintId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -293,6 +337,12 @@ namespace DataAccessLayer.Migrations
                         name: "FK_Boards_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Boards_Sprint_CurrentSprintId",
+                        column: x => x.CurrentSprintId,
+                        principalTable: "Sprint",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -329,7 +379,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     BoardId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -349,17 +399,29 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: false),
                     AssigneeId = table.Column<int>(nullable: false),
                     ColumnId = table.Column<int>(nullable: false),
-                    BacklogTaskId = table.Column<int>(nullable: false),
-                    HistoryId = table.Column<int>(nullable: false)
+                    BacklogTaskId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    StoryPointsSpent = table.Column<int>(nullable: true),
+                    ExpirationDate = table.Column<DateTime>(nullable: true),
+                    StoryPointsExpected = table.Column<int>(nullable: true),
+                    ScrumTask_StoryPointsSpent = table.Column<int>(nullable: true),
+                    SprintId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Sprint_SprintId",
+                        column: x => x.SprintId,
+                        principalTable: "Sprint",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tasks_Users_AssigneeId",
                         column: x => x.AssigneeId,
@@ -371,7 +433,7 @@ namespace DataAccessLayer.Migrations
                         column: x => x.BacklogTaskId,
                         principalTable: "BacklogTask",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tasks_Columns_ColumnId",
                         column: x => x.ColumnId,
@@ -428,16 +490,16 @@ namespace DataAccessLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     TaskId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    BoardBaseId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    BoardId = table.Column<int>(nullable: true),
                     ColumnId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ConstraintRecord", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ConstraintRecord_Boards_BoardBaseId",
-                        column: x => x.BoardBaseId,
+                        name: "FK_ConstraintRecord_Boards_BoardId",
+                        column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -461,7 +523,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: true),
                     BoardId = table.Column<int>(nullable: false),
                     TaskId = table.Column<int>(nullable: true)
                 },
@@ -493,9 +555,20 @@ namespace DataAccessLayer.Migrations
                 column: "RequirementId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BacklogTask_SprintBacklogId",
+                table: "BacklogTask",
+                column: "SprintBacklogId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Boards_TeamId",
                 table: "Boards",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Boards_CurrentSprintId",
+                table: "Boards",
+                column: "CurrentSprintId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Columns_BoardId",
@@ -518,9 +591,9 @@ namespace DataAccessLayer.Migrations
                 column: "TaskId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConstraintRecord_BoardBaseId",
+                name: "IX_ConstraintRecord_BoardId",
                 table: "ConstraintRecord",
-                column: "BoardBaseId");
+                column: "BoardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConstraintRecord_ColumnId",
@@ -588,6 +661,17 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Requirement_RequirementListId",
                 table: "Requirement",
                 column: "RequirementListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sprint_SprintBacklogId",
+                table: "Sprint",
+                column: "SprintBacklogId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_SprintId",
+                table: "Tasks",
+                column: "SprintId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_AssigneeId",
@@ -678,7 +762,13 @@ namespace DataAccessLayer.Migrations
                 name: "Teams");
 
             migrationBuilder.DropTable(
+                name: "Sprint");
+
+            migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "SprintBacklog");
 
             migrationBuilder.DropTable(
                 name: "ProjectBacklog");

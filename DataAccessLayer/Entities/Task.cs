@@ -25,9 +25,9 @@ namespace DataAccessLayer.Entities
         public int ColumnId { get; set; }
 
         public BacklogTask BacklogTask { get; set; }
-        public int BacklogTaskId { get; set; }
+        public int? BacklogTaskId { get; set; }
 
         public History History{ get; set; }
-        public int HistoryId { get; set; }
+        public int? HistoryId { get; set; }
     }
 }

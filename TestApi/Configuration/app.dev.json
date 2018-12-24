@@ -1,0 +1,6 @@
+{
+  "Environment": "Development",
+  "ConnectionStrings": {
+    "Default": "Server=localhost;Port=5432;Database=maria_project;Username=albert;Password=password;"
+  }
+}

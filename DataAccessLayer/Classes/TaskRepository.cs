@@ -2,34 +2,71 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace DataAccessLayer.Classes
 {
-    public class TaskRepository:IRepository<Task>
+    public class TaskRepository:IRepository<BoardTask>
     {
-        public IQueryable<Task> GetAll()
+        private readonly DefaultContext _context;
+
+        public TaskRepository(DefaultContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task Get(int id)
+        public async Task<IQueryable<BoardTask>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var q = _context.Tasks
+                .Include(t => t.Assignee)
+                .Include(t => t.Labels)
+                .Include(t => t.Column)
+                .Include(t => t.BacklogTask)
+                .Include(t => t.History)
+                .Include(t => t.Constraints);
+
+            return q;
         }
 
-        public void Update(Task entity)
+        public async Task<BoardTask> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var task = _context.Tasks
+                .Include(t => t.Assignee)
+                .Include(t => t.Labels)
+                .Include(t => t.Column)
+                .Include(t => t.BacklogTask)
+                .Include(t => t.History)
+                .Include(t => t.Constraints)
+                .FirstOrDefault(t => t.Id == id);
+
+            return task;
         }
 
-        public void Create(Task entity)
+        public async Task UpdateAsync(BoardTask entity)
         {
-            throw new NotImplementedException();
+            _context.Tasks.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task<int> CreateAsync(BoardTask entity)
         {
-            throw new NotImplementedException();
+            await _context.Tasks.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            BoardTask task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (task == null)
+            {
+                throw new ArgumentException($"Task with id {id} is not defined.");
+            }
+
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
         }
     }
 }
