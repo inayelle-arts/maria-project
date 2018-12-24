@@ -30,11 +30,6 @@ namespace App
 
 		public override void Configure(IApplicationBuilder app)
 		{
-
-            //todo: remove
-		    var logger = LogManager.GetCurrentClassLogger();
-            logger.Log(LogLevel.Error,"In Configure ERROR");
-
 		    app.EnvironmentDependentConfiguration(Environment);
 
 			app.UseStaticFiles();
