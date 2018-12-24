@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using NLog;
 
 namespace App
 {
@@ -29,7 +30,7 @@ namespace App
 
 		public override void Configure(IApplicationBuilder app)
 		{
-			app.EnvironmentDependentConfiguration(Environment);
+		    app.EnvironmentDependentConfiguration(Environment);
 
 			app.UseStaticFiles();
 
