@@ -1,4 +1,6 @@
 using DataAccessLayer.Entities;
+using DataAccessLayer.Entities.Constraints;
+using DataAccessLayer.Entities.Constraints.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
@@ -20,5 +22,14 @@ namespace DataAccessLayer
 	    public DbSet<ScrumTask> ScrumTasks { get; set; }
 	    public DbSet<KanbanTask> KanbanTasks { get; set; }
         public DbSet<Team> Teams { get; set; }
+
+	    public DbSet<TaskConstraintEntityBase> TaskConstraints { get; set; }
+        public DbSet<ColumnConstraintEntityBase> ColumnConstraints { get; set; }
+	    public DbSet<BoardConstraintEntityBase> BoardConstraints { get; set; }
+	    public DbSet<SequentialBoardMovementConstraintEntity> SequentialBoardMovementConstraints { get; set; }
+	    public DbSet<SequentialTaskConstraintEntity> SequentialTaskConstraints { get; set; }
+	    public DbSet<TasksPerUserColumnConstraintEntity> TasksPerUserColumnConstraints { get; set; }
+
+
 	}
 }

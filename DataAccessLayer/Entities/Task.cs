@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DataAccessLayer.Entities.Constraints.Abstract;
 
 namespace DataAccessLayer.Entities
 {
@@ -15,7 +16,7 @@ namespace DataAccessLayer.Entities
 
         public virtual ICollection<Label> Labels { get; set; }
         public virtual ICollection<Comment> Comments{ get; set; }
-        public virtual ICollection<ConstraintRecord> Constraints { get; set; }
+        public virtual ICollection<TaskConstraintEntityBase> Constraints { get; set; }
        
         //todo: allow multiple assignees
         public User Assignee { get; set; }

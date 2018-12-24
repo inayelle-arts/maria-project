@@ -35,6 +35,5 @@ namespace TestApi.Controllers
             var task = await _taskRepository.GetAsync(id);
             return task;
         }
-
     }
 }
