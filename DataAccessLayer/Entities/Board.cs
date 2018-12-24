@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DataAccessLayer.Entities.Constraints.Abstract;
 
 namespace DataAccessLayer.Entities
 {
@@ -14,6 +15,6 @@ namespace DataAccessLayer.Entities
         public virtual Team Team { get; set; }
         public virtual ICollection<Label> Labels { get; set; }
         public virtual ICollection<Column> Columns { get; set; }
-        public virtual ICollection<ConstraintRecord> Constraints { get; set; }
+        public virtual ICollection<BoardConstraintEntityBase> Constraints { get; set; }
     }
 }
