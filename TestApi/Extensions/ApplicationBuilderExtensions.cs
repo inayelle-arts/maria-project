@@ -1,10 +1,9 @@
-using System;
-using App.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using TestApi.Services.Interfaces;
 
-namespace App.Extensions
+namespace TestApi.Extensions
 {
 	internal static class ApplicationBuilderExtensions
 	{

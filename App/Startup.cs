@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Classes;
+using DataAccessLayer.Entities;
 using NLog;
 
 namespace App
@@ -25,6 +27,7 @@ namespace App
 		{
 			services.AddDefaultContext(Configuration);
             services.AddSingleton<IDbInitializerService,TestDbInitializerService>();
+            services.AddScoped<IRepository<Task>, TaskRepository>();
 			services.AddMvc();
 		}
 
