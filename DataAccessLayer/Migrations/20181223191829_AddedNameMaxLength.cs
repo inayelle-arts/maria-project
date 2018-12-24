@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace App.Migrations
+namespace DataAccessLayer.Migrations
 {
     public partial class AddedNameMaxLength : Migration
     {

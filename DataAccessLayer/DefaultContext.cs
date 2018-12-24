@@ -1,7 +1,7 @@
-using App.DAL.Entities;
+using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.DAL
+namespace DataAccessLayer
 {
 	public sealed class DefaultContext : DbContext
 	{

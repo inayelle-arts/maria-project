@@ -16,7 +16,6 @@ namespace App.Extensions
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
-                    app.SeedDatabase();
 					break;
 				}
 				case "Production":

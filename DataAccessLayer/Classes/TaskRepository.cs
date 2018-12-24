@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using App.DAL.Interfaces;
+using DataAccessLayer.Interfaces;
 
-namespace App.DAL.Classes
+namespace DataAccessLayer.Classes
 {
     public class TaskRepository:IRepository<Task>
     {
