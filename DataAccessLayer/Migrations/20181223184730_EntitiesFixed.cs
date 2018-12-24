@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace App.Migrations
+namespace DataAccessLayer.Migrations
 {
     public partial class EntitiesFixed : Migration
     {

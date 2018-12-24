@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using App.DAL.Entities;
+﻿using DataAccessLayer.Entities;
 using Task = System.Threading.Tasks.Task;
 
-namespace App.DAL.Interfaces
+namespace BusinessLayer.BL.Interfaces
 {
     internal interface IColumnManager
 
