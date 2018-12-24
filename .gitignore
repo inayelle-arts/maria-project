@@ -5,6 +5,7 @@
 **/(L|l)ogs
 **/*.log
 **/node_modules/
+**/Logs/
 **/.vs/
 **/*.*.DotSettings.user
 App/Static/scripts/js/
