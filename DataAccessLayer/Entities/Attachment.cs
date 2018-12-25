@@ -1,8 +1,8 @@
 ﻿namespace DataAccessLayer.Entities
 {
-    public class Attachment
-    {
-        public int Id { get; set; }
-        public string  StoragePath { get; set; }
-    }
+	public class Attachment
+	{
+		public int    Id          { get; set; }
+		public string StoragePath { get; set; }
+	}
 }

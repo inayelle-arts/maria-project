@@ -7,7 +7,8 @@ namespace TestApi.Extensions
 {
 	internal static class ApplicationBuilderExtensions
 	{
-		public static void EnvironmentDependentConfiguration(this IApplicationBuilder app, IHostingEnvironment environment)
+		public static void EnvironmentDependentConfiguration(this IApplicationBuilder app,
+		                                                     IHostingEnvironment      environment)
 		{
 			switch (environment.EnvironmentName)
 			{
@@ -15,7 +16,13 @@ namespace TestApi.Extensions
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
-                    app.SeedDatabase();
+					app.SeedDatabase();
+					break;
+				}
+				case "Development.NoDbInit":
+				{
+					app.UseDeveloperExceptionPage();
+					app.UseDatabaseErrorPage();
 					break;
 				}
 				case "Production":
@@ -30,10 +37,10 @@ namespace TestApi.Extensions
 			}
 		}
 
-	    private static void SeedDatabase(this IApplicationBuilder app)
-	    {
-	        var initializer = app.ApplicationServices.GetRequiredService<IDbInitializerService>();
-	        initializer.Seed();
-	    }
-    }
+		private static void SeedDatabase(this IApplicationBuilder app)
+		{
+			var initializer = app.ApplicationServices.GetRequiredService<IDbInitializerService>();
+			initializer.Seed();
+		}
+	}
 }

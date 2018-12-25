@@ -2,9 +2,9 @@
 
 namespace DataAccessLayer.Entities
 {
-    [Table("KanbanTasks")]
-    public class KanbanTask : Task
-    {
-        public int StoryPointsSpent { get; set; }
-    }
+	[Table("KanbanTasks")]
+	public class KanbanTask : Task
+	{
+		public int StoryPointsSpent { get; set; }
+	}
 }

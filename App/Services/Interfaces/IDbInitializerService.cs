@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace App.Services.Interfaces
+﻿namespace App.Services.Interfaces
 {
-    public interface IDbInitializerService
-    {
-        void Seed();
-    }
+	public interface IDbInitializerService
+	{
+		void Seed();
+	}
 }

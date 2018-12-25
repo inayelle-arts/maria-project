@@ -1,4 +1,3 @@
-using System;
 using App.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +7,8 @@ namespace App.Extensions
 {
 	internal static class ApplicationBuilderExtensions
 	{
-		public static void EnvironmentDependentConfiguration(this IApplicationBuilder app, IHostingEnvironment environment)
+		public static void EnvironmentDependentConfiguration(this IApplicationBuilder app,
+		                                                     IHostingEnvironment      environment)
 		{
 			switch (environment.EnvironmentName)
 			{
@@ -16,7 +16,7 @@ namespace App.Extensions
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
-                    app.SeedDatabase();
+					app.SeedDatabase();
 					break;
 				}
 				case "Production":
@@ -31,10 +31,10 @@ namespace App.Extensions
 			}
 		}
 
-	    private static void SeedDatabase(this IApplicationBuilder app)
-	    {
-	        var initializer = app.ApplicationServices.GetRequiredService<IDbInitializerService>();
-	        initializer.Seed();
-	    }
-    }
+		private static void SeedDatabase(this IApplicationBuilder app)
+		{
+			var initializer = app.ApplicationServices.GetRequiredService<IDbInitializerService>();
+			initializer.Seed();
+		}
+	}
 }

@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Entities.Constraints
 {
-    public class SequentialBoardMovementConstraintEntity : BoardConstraintEntityBase
-    {
-    }
+	public class SequentialBoardMovementConstraintEntity : BoardConstraintEntityBase
+	{
+	}
 }
