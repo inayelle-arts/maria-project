@@ -7,13 +7,64 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css" asp-append-version="true"/>
 </head>
 <body>
-@RenderBody()
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.validate.js"></script>
 <script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js"></script>
-<script type="text/javascript" src="~/scripts/js/bundle.js"></script>
+<script type="text/javascript" src="~/scripts/js/main.js" defer="defer"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" defer="defer"></script>
+
+<header>
+    <nav>
+        <div class="container-fluid">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <a href="/">
+                        <img class="logo-image" src="~/img/layout/logo.jpg" alt="logo"/>
+                        <div>
+                            <div class="logo-text">
+                                MARIA
+                            </div>
+                            <div class="logo-subtext">
+                                Project management system
+                            </div>
+                            <div class="logo-slogan">
+                                from coders to coders with
+                                <i class="material-icons" style="font-size: 12px;">
+                                    favorite
+                                </i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <p id="board-title" style="text-align: center">@ViewBag.BoardName</p>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="btn-group">
+                        <a class="btn">
+                            Profile
+                        </a>
+                        <a class="btn">
+                            Projects
+                        </a>
+                        <a class="btn">
+                            Recents
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div id="render-body">
+    @RenderBody()
+</div>
+
 </body>
 </html>

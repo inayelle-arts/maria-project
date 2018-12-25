@@ -23,7 +23,7 @@ function compileSass()
 
 function watchSass()
 {
-    return gulp.watch('./static/styles/scss/*.scss', 'sass');
+    return gulp.watch(`${srcStyles}/*.scss`, gulp.series(compileSass));
 }
 
 function prepareMaterialKit()
@@ -35,6 +35,12 @@ function prepareMaterialKit()
     return gulp.src(
         `${librariesRoot}/material-kit/assets/scss/**/*`)
                .pipe(gulp.dest(`${srcStyles}/material-kit`));
+}
+
+function prepareTypedJson()
+{
+    return gulp.src(`${librariesRoot}/typedjson/js/typedjson.js`)
+               .pipe(gulp.dest(`${destScripts}`));
 }
 
 function prepareJquery()
@@ -82,6 +88,8 @@ gulp.task('prepare-jquery', gulp.series(prepareJquery));
 
 gulp.task('prepare-fa', gulp.series(prepareFontAwesome));
 
+gulp.task('prepare-typedjson', gulp.series(prepareTypedJson));
+
 gulp.task('clean', gulp.series(clean));
 
 gulp.task(
@@ -90,6 +98,7 @@ gulp.task(
         'prepare-fa',
         'prepare-material-kit',
         'prepare-jquery',
+        'prepare-typedjson',
         'sass'
     )
 );
