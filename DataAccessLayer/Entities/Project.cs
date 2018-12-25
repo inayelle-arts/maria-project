@@ -5,6 +5,11 @@ namespace DataAccessLayer.Entities
 {
     public class Project
     {
+        public Project()
+        {
+            Teams = new List<Team>();
+        }
+
         public int Id { get; set; }
         [Required]
         [MaxLength(255)]

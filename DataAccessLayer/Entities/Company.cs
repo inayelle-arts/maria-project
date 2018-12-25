@@ -5,6 +5,11 @@ namespace DataAccessLayer.Entities
 {
     public class Company
     {
+        public Company()
+        {
+            Cooperations = new List<Cooperation>();
+        }
+
         public int Id { get; set; }
         public string Description { get; set; }
         [Required]
