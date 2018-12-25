@@ -9,16 +9,14 @@
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css"/>
-    <link href="~/styles/css/board.css" type="text/css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css" asp-append-version="true"/>
 </head>
 <body>
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.validate.js"></script>
 <script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js"></script>
 <script type="text/javascript" src="~/scripts/js/main.js" defer="defer"></script>
-<script type="text/javascript" src="~/scripts/js/typedjson.js"></script>
-<script type="text/javascript" src="~/scripts/js/board.js" defer="defer"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" defer="defer"></script>
 
 <header>
     <nav>
@@ -64,7 +62,7 @@
     </nav>
 </header>
 
-<div id="content">
+<div id="render-body">
     @RenderBody()
 </div>
 

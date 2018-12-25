@@ -9,7 +9,7 @@ export class CompositeComponentBase
 	
 	private _id: string;
 	
-	constructor(id: string, html: HTMLElement = null)
+	protected constructor(id: string, html: HTMLElement = null)
 	{
 		this._id = id;
 		

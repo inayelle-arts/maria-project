@@ -57,6 +57,6 @@ export class TaskEntity extends EntityBase
 	
 	public save(): boolean
 	{
-		return this.Manager.Task.update(this);
+		throw new Error('not implemented');
 	}
 }

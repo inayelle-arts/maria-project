@@ -46,12 +46,6 @@ export class ColumnEntity extends EntityBase
 	
 	save(): boolean
 	{
-		if (this._id === null)
-		{
-			return this.Manager.Column.add(this);
-		} else
-		{
-			return this.Manager.Column.update(this);
-		}
+		throw new Error('not implemented');
 	}
 }

@@ -46,6 +46,6 @@ export class BoardEntity extends EntityBase
 	
 	public save(): boolean
 	{
-		return this.Manager.Board.update(this);
+		throw new Error('not implemented');
 	}
 }

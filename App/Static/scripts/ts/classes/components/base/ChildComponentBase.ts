@@ -1,33 +1,23 @@
-import {LayoutRepository} from "../../repos/LayoutRepository";
 import {CompositeComponentBase} from "./CompositeComponentBase";
 
 export abstract class ChildComponentBase extends CompositeComponentBase
 {
-	protected static readonly LayoutStorage: LayoutRepository = new LayoutRepository();
-	
-	private readonly _layout: string;
 	private readonly _initId: string;
 	
 	private _parentComponent: CompositeComponentBase;
 	
-	protected constructor(id: string, layout: string)
+	protected constructor(id: string, html: HTMLElement, parent: CompositeComponentBase = null)
 	{
-		const tag = $(layout).prop('tagName');
-		const html = document.createElement(tag);
-		html.id = id;
-		html.innerHTML = $(layout).prop('innerHTML');
-		
 		super(id, html);
 		this._initId = id;
-		this._layout = layout;
-		this._parentComponent = null;
+		this.Parent = parent;
 	}
 	
 	public set Parent(parentComponent: CompositeComponentBase)
 	{
 		if (parentComponent != null)
 		{
-			this.Id = parentComponent.Id + "_" + this.Id;
+			this.Id = parentComponent.Id + "_" + this._initId;
 		} else
 		{
 			this.Id = this._initId;

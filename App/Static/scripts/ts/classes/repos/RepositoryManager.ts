@@ -10,7 +10,7 @@ export class RepositoryManager
 	private readonly _columnRepo: ColumnRepository;
 	private readonly _taskRepo: TaskRepository;
 	
-	private constructor()
+	protected constructor()
 	{
 		this._boardRepo = new BoardRepository(this);
 		this._columnRepo = new ColumnRepository(this);
@@ -32,7 +32,7 @@ export class RepositoryManager
 		return this._taskRepo;
 	}
 	
-	static get Instance(): RepositoryManager
+	public static getInstance(): RepositoryManager
 	{
 		if (this.__instance__ == null)
 		{

@@ -1,3 +1,31 @@
-@import "board/board";
-@import "board/row";
-@import "board/task";
+@import "colors";
+
+//BOARD
+
+.board-header {
+	border-top: 1px solid gray;
+	background-color: $board-header-color;
+}
+
+.board-name {
+	color: $foreground-color;
+}
+
+.board-options {
+	float: right;
+}
+
+
+// COLUMN
+
+.column {
+	border: 1px solid black;
+}
+
+
+// TASK
+
+.task {
+	margin-bottom: 10px;
+	background-color: white;
+}

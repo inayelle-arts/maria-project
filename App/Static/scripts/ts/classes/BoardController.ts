@@ -1,36 +1,30 @@
-import {MainComponent} from "./components/test/MainComponent";
-import {ChildComponent} from "./components/test/ChildComponent";
+import {ContentComponent} from "./components/ContentComponent";
+import {BoardUnit} from "./units/BoardUnit";
+import {RepositoryManager} from "./repos/RepositoryManager";
 
 export class BoardController
 {
+	private static readonly _repoManager = RepositoryManager.getInstance();
+	
+	private readonly _contentComponent: ContentComponent;
+	private readonly _boardUnit: BoardUnit;
+	
 	constructor()
 	{
 		localStorage.clear();
+		this._contentComponent = new ContentComponent('content');
+		this._boardUnit = BoardController.loadBoardUnit();
 	}
 	
 	public initialize(): void
 	{
-		
+		this._contentComponent.addChild(this._boardUnit.Component);
 	}
 	
-	public tester(): void
+	private static loadBoardUnit(): BoardUnit
 	{
-		const mainComponent = new MainComponent("content");
+		const entity = this._repoManager.Board.get(1);
 		
-		const child1 = new ChildComponent('1');
-		const child2 = new ChildComponent('2');
-		
-		mainComponent.addChild(child1);
-		mainComponent.addChild(child2);
-		
-		mainComponent.removeChild(child2);
-		mainComponent.addChild(child2);
-		
-		
-		// const childComponent1 = new ChildComponent('' + 1);
-		// const childComponent2 = new ChildComponent('' + 2);
-		
-		// mainComponent.addChild(childComponent1);
-		// mainComponent.addChild(childComponent2); 
+		return new BoardUnit(entity);
 	}
 }
