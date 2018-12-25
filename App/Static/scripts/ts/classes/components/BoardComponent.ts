@@ -29,4 +29,10 @@ export class BoardComponent extends LayoutComponentBase
 	{
 		this.JDom.find('.board-name').text(value);
 	}
+	
+	public printId(tab: string = ''): void
+	{
+		super.printId(tab);
+		this._columnContainer.printId(tab);
+	}
 }

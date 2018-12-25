@@ -1,47 +1,55 @@
 import {TaskEntity} from "./TaskEntity";
 import {EntityBase} from "./EntityBase";
+import {JsonObject, JsonProperty} from "json2typescript";
 
+@JsonObject("ColumnEntity")
 export class ColumnEntity extends EntityBase
 {
-	private readonly _id: number;
+	@JsonProperty("id", Number)
+	private _id: number;
+	
+	@JsonProperty("name", String)
 	private _name: string;
-	private readonly _tasks: TaskEntity[];
 	
-	constructor(id: number, name: string, tasks: TaskEntity[])
-	{
-		super();
-		this._id = id;
-		this._name = name;
-		this._tasks = tasks;
-	}
+	@JsonProperty("tasks", [TaskEntity])
+	private _tasks: Array<TaskEntity>;
 	
-	public get Id() : number
+	// constructor(id: number, name: string, tasks: TaskEntity[])
+	// {
+	// 	super();
+	// 	this._id = id;
+	// 	this._name = name;
+	// 	this._tasks = tasks;
+	// }
+	
+	get id(): number
 	{
 		return this._id;
 	}
 	
-	getName(): string
+	set id(value: number)
+	{
+		this._id = value;
+	}
+	
+	get name(): string
 	{
 		return this._name;
 	}
 	
-	setName(value: string): boolean
+	set name(value: string)
 	{
-		const temp = this._name;
 		this._name = value;
-		
-		if (!this.save())
-		{
-			this._name = temp;
-			return false;
-		}
-		
-		return true;
 	}
 	
-	get Tasks(): TaskEntity[]
+	get tasks(): Array<TaskEntity>
 	{
 		return this._tasks;
+	}
+	
+	set tasks(value: Array<TaskEntity>)
+	{
+		this._tasks = value;
 	}
 	
 	save(): boolean

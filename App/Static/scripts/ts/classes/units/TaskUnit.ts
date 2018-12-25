@@ -6,7 +6,7 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 {
 	constructor(entity: TaskEntity)
 	{
-		const id = 'task-' + entity.Id;
+		const id = 'task_' + entity.id;
 		const component = new TaskComponent(id);
 		super(entity, component);
 		
@@ -15,6 +15,8 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 	
 	protected initialize(): void
 	{
-		this.Component.Name = this.Entity.getName();
+		this.Component.Name = this.Entity.name;
+		this.Component.Description = this.Entity.description;
+		this.Component.Code = this.Entity.code;
 	}
 }

@@ -17,7 +17,6 @@ export class JFactory
 	public static removeById(id: string): void
 	{
 		id = `#${id}`;
-		console.log('JFactory:remove(' + id + ')');
 		$(id).remove();
 	}
 }

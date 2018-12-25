@@ -10,7 +10,7 @@ export class ColumnUnit extends UnitBase<ColumnEntity, ColumnComponent>
 	
 	constructor(entity: ColumnEntity)
 	{
-		const id = 'column-' + entity.Id;
+		const id = 'column_' + entity.id;
 		const component = new ColumnComponent(id);
 		super(entity, component);
 		
@@ -19,17 +19,42 @@ export class ColumnUnit extends UnitBase<ColumnEntity, ColumnComponent>
 		this.initialize();
 	}
 	
-	protected initialize(): void
+	private initialize(): void
 	{
-		this.Component.Name = this.Entity.getName();
+		this.Component.Name = this.Entity.name;
 		
-		this.Entity.Tasks.forEach((entity: TaskEntity) =>
+		this.Entity.tasks.forEach((entity: TaskEntity) =>
 		{
 			const unit = new TaskUnit(entity);
 			
 			this._taskUnits.push(unit);
 			
-			this.Component.addTaskComponent(unit.Component);	
+			this.Component.addTaskComponent(unit.Component);
 		});
+		
+		this.bindEvents();
+	}
+	
+	private bindEvents(): void
+	{
+		this.Component.AddTaskButtonJDom.bind('click', () =>
+		{
+			this.onAddTaskButtonClick();
+		});
+		
+		this.Component.SettingsButtonJDom.bind('click', () =>
+		{
+			this.onSettingsButtonClick();
+		});
+	}
+	
+	private onAddTaskButtonClick()
+	{
+		console.log('add task click [' + this.Entity.id + ']');
+	}
+	
+	private onSettingsButtonClick()
+	{
+		console.log('settings click [' + this.Entity.id + ']');
 	}
 }

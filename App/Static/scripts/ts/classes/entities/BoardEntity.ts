@@ -1,47 +1,55 @@
 import {ColumnEntity} from "./ColumnEntity";
 import {EntityBase} from "./EntityBase";
+import {JsonObject, JsonProperty} from "json2typescript";
 
+@JsonObject("BoardEntity")
 export class BoardEntity extends EntityBase
 {
-	private readonly _id: number;
+	@JsonProperty("id", Number)
+	private _id: number;
+	
+	@JsonProperty("name", String)
 	private _name: string;
-	private readonly _columns: ColumnEntity[];
 	
-	constructor(id: number, name: string, columns: ColumnEntity[])
-	{
-		super();
-		this._id = id;
-		this._name = name;
-		this._columns = columns;
-	}
+	@JsonProperty("columns", [ColumnEntity])
+	private _columns: Array<ColumnEntity>;
 	
-	get Id() : number
+	// constructor(id: number, name: string, columns: ColumnEntity[])
+	// {
+	// 	super();
+	// 	this._id = id;
+	// 	this._name = name;
+	// 	this._columns = columns;
+	// }
+	
+	get id(): number
 	{
 		return this._id;
 	}
 	
-	get Columns(): ColumnEntity[]
+	set id(value: number)
 	{
-		return this._columns;
+		this._id = value;
 	}
 	
-	getName(): string
+	get name(): string
 	{
 		return this._name;
 	}
 	
-	setName(value: string): boolean
+	set name(value: string)
 	{
-		const temp = this._name;
 		this._name = value;
-		
-		if (!this.save())
-		{
-			this._name = temp;
-			return false;
-		}
-		
-		return true;
+	}
+	
+	get columns(): Array<ColumnEntity>
+	{
+		return this._columns;
+	}
+	
+	set columns(value: Array<ColumnEntity>)
+	{
+		this._columns = value;
 	}
 	
 	public save(): boolean
