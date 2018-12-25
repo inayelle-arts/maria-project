@@ -65,6 +65,9 @@ namespace TestApi.Services.Classes
             {
                 Team = team,
                 Name = "maria_demo",
+                Creator = user,
+                Project = project,
+                History = new History()
             };
 
             ProjectBacklog backlog = new ProjectBacklog()
@@ -75,13 +78,14 @@ namespace TestApi.Services.Classes
             RequirementList requirementList = new RequirementList()
             {
                 Project = project
-
             };
 
             Column column = new Column()
             {
                 Name = "col1",
                 Board = board,
+                Creator = user,
+                History =  new History(),
             };
 
             History history = new History();
@@ -93,7 +97,7 @@ namespace TestApi.Services.Classes
                 Name = "t1",
                 Description = "the first task",
                 Code = "0001",
-                Assignee = user,
+                Creator = user,
             };
 
             Task t2 = new Task()
@@ -104,6 +108,7 @@ namespace TestApi.Services.Classes
                 Description = "the second task",
                 Code = "0002",
                 Assignee = user,
+                Creator =  user
             };
 
             Comment t1c1 = new Comment()

@@ -24,7 +24,6 @@ namespace TestApi
             Environment = environment;
         }
 
-
         private IHostingEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
@@ -33,9 +32,8 @@ namespace TestApi
         {
             services.AddDefaultContext(Configuration);
             services.AddSingleton<IDbInitializerService, TestDbInitializerService>();
-            services.AddScoped<IRepository<Task>, TaskRepository>();
-            services.AddScoped<IRepository<Column>, ColumnRepository>();
-            services.AddScoped<IRepository<Board>, BoardRepository>();
+            services.AddRepositories();
+            services.AddManagers();
             services.AddMvc()
                 .AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

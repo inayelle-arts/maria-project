@@ -6,6 +6,13 @@ namespace DataAccessLayer.Entities
 {
     public class Task
     {
+        public Task()
+        {
+            Labels = new List<Label>();
+            Comments = new List<Comment>();
+            Constraints = new List<TaskConstraintEntityBase>();
+        }
+
         public int Id { get; set; }
         [Required]
         [MaxLength(255)]
@@ -20,15 +27,18 @@ namespace DataAccessLayer.Entities
        
         //todo: allow multiple assignees
         public User Assignee { get; set; }
-        public int AssigneeId { get; set; }
+        public int? AssigneeId { get; set; }
 
-        public Column Column { get; set; }
+        public virtual User Creator { get; set; }
+        public int CreatorId { get; set; }
+
+        public virtual Column Column { get; set; }
         public int ColumnId { get; set; }
 
-        public BacklogTask BacklogTask { get; set; }
+        public virtual BacklogTask BacklogTask { get; set; }
         public int? BacklogTaskId { get; set; }
 
-        public History History{ get; set; }
+        public virtual History History { get; set; }
         public int? HistoryId { get; set; }
     }
 }

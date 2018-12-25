@@ -5,6 +5,14 @@ namespace DataAccessLayer.Entities
 {
     public class User
     {
+        public User()
+        {
+            CompanyCooperations = new List<Cooperation>();
+            Projects = new List<Project>();
+            Contacts = new List<ContactInfo>();
+            TeamUserPairs = new List<Teams2Users>();
+        }
+
         public int Id { get; set; }
         [Required]
         [EmailAddress]
