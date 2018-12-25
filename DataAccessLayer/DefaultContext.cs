@@ -22,6 +22,10 @@ namespace DataAccessLayer
 	    public DbSet<ScrumTask> ScrumTasks { get; set; }
 	    public DbSet<KanbanTask> KanbanTasks { get; set; }
         public DbSet<Team> Teams { get; set; }
+	    public DbSet<History> Histories { get; set; }
+	    public DbSet<HistoryPoint> HistoryPoints { get; set; }
+	    public DbSet<Comment> Comments { get; set; }
+	    public DbSet<Label> Labels { get; set; }
 
 	    public DbSet<TaskConstraintEntityBase> TaskConstraints { get; set; }
         public DbSet<ColumnConstraintEntityBase> ColumnConstraints { get; set; }
@@ -29,6 +33,7 @@ namespace DataAccessLayer
 	    public DbSet<SequentialBoardMovementConstraintEntity> SequentialBoardMovementConstraints { get; set; }
 	    public DbSet<SequentialTaskConstraintEntity> SequentialTaskConstraints { get; set; }
 	    public DbSet<TasksPerUserColumnConstraintEntity> TasksPerUserColumnConstraints { get; set; }
+
 
 
 	}

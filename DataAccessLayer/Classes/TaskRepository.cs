@@ -45,6 +45,12 @@ namespace DataAccessLayer.Classes
 
         public async Task UpdateAsync(BoardTask entity)
         {
+            BoardTask currentTask = _context.Tasks.FirstOrDefault(t => t.Id == entity.Id);
+            if (currentTask == null)
+            {
+                throw new InvalidOperationException($"Task with id = \"{entity.Id}\" is not defined.");
+            }
+
             _context.Tasks.Update(entity);
             await _context.SaveChangesAsync();
         }

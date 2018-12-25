@@ -5,6 +5,11 @@ namespace DataAccessLayer.Entities
 {
     public class Requirement
     {
+        public Requirement()
+        {
+            Tasks = new List<BacklogTask>();
+        }
+
         public int  Id { get; set; }
         [Required]
         [MaxLength(255)]

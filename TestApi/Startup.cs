@@ -16,7 +16,6 @@ using TestApi.Services.Interfaces;
 namespace TestApi
 {
     public class Startup : StartupBase
-
     {
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
@@ -24,26 +23,22 @@ namespace TestApi
             Environment = environment;
         }
 
-
         private IHostingEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddDefaultContext(Configuration);
             services.AddSingleton<IDbInitializerService, TestDbInitializerService>();
-            services.AddScoped<IRepository<Task>, TaskRepository>();
-            services.AddScoped<IRepository<Column>, ColumnRepository>();
-            services.AddScoped<IRepository<Board>, BoardRepository>();
+            services.AddRepositories();
+            services.AddManagers();
+            services.AddCorsPolicy(Configuration);
             services.AddMvc()
                 .AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
         }
 
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public override void Configure(IApplicationBuilder app)
         {
             app.EnvironmentDependentConfiguration(Environment);

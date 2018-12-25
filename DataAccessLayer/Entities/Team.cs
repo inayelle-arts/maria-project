@@ -5,6 +5,11 @@ namespace DataAccessLayer.Entities
 {
     public class Team
     {
+        public Team()
+        {
+            TeamUserPairs = new List<Teams2Users>();
+        }
+
         public int Id { get; set; }
         [Required]
         [MaxLength(255)]
@@ -14,6 +19,8 @@ namespace DataAccessLayer.Entities
 
         public virtual Company Company { get; set; }
         public int CompanyId { get; set; }
+
+        public virtual Board Board { get; set; }
 
         public virtual Project Project { get; set; }
         public int ProjectId { get; set; }
