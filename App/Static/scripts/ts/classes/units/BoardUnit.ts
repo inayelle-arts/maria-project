@@ -10,7 +10,7 @@ export class BoardUnit extends UnitBase<BoardEntity, BoardComponent>
 	
 	constructor(entity: BoardEntity)
 	{
-		const id = 'board-' + entity.Id;
+		const id = 'board_' + entity.id;
 		const component = new BoardComponent(id);
 		super(entity, component);
 		
@@ -21,9 +21,9 @@ export class BoardUnit extends UnitBase<BoardEntity, BoardComponent>
 	
 	private initialize(): void
 	{
-		this.Component.Name = this.Entity.getName();
+		this.Component.Name = this.Entity.name;
 		
-		this.Entity.Columns.forEach((entity: ColumnEntity) =>
+		this.Entity.columns.forEach((entity: ColumnEntity) =>
 		{
 			const unit = new ColumnUnit(entity);
 			

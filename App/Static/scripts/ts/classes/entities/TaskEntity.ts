@@ -1,43 +1,48 @@
 import {EntityBase} from "./EntityBase";
+import {JsonObject, JsonProperty} from "json2typescript";
 
+@JsonObject("TaskEntity")
 export class TaskEntity extends EntityBase
 {
-	private readonly _id: number;
+	@JsonProperty("id", Number)
+	private _id: number;
+	
+	@JsonProperty("name", String)
 	private _name: string;
+	
+	@JsonProperty("description", String)
 	private _description: string;
-	private readonly _code: string;
 	
-	constructor(id: number, name: string, description: string, code: string)
-	{
-		super();
-		this._id = id;
-		this._name = name;
-		this._description = description;
-		this._code = code;
-	}
+	@JsonProperty("code", String)
+	private _code: string;
 	
-	public get Id() : number
+	// constructor(id: number, name: string, description: string, code: string)
+	// {
+	// 	super();
+	// 	this._id = id;
+	// 	this._name = name;
+	// 	this._description = description;
+	// 	this._code = code;
+	// }
+	
+	get id(): number
 	{
 		return this._id;
 	}
 	
-	getName(): string
+	set id(value: number)
+	{
+		this._id = value;
+	}
+	
+	get name(): string
 	{
 		return this._name;
 	}
 	
-	setName(value: string): boolean
+	set name(value: string)
 	{
-		const temp = this._name;
 		this._name = value;
-		
-		if (!this.save())
-		{
-			this._name = temp;
-			return false;
-		}
-		
-		return true;
 	}
 	
 	get description(): string
@@ -53,6 +58,11 @@ export class TaskEntity extends EntityBase
 	get code(): string
 	{
 		return this._code;
+	}
+	
+	set code(value: string)
+	{
+		this._code = value;
 	}
 	
 	public save(): boolean

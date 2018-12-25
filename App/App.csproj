@@ -38,7 +38,6 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="Static\img" />
-    <Folder Include="Static\styles\css" />
   </ItemGroup>
 
   <ItemGroup>

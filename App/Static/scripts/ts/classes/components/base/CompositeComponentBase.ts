@@ -7,10 +7,15 @@ export class CompositeComponentBase
 	
 	private readonly _children: Array<ChildComponentBase>;
 	
-	private _id: string;
+	private _id: string = null;
 	
 	protected constructor(id: string, html: HTMLElement = null)
 	{
+		if (id == null || typeof id == "undefined")
+		{
+			throw new Error('ID IS NULL');
+		}
+		
 		this._id = id;
 		
 		if (html == null)
@@ -26,17 +31,26 @@ export class CompositeComponentBase
 	
 	public get Id(): string
 	{
+		if (typeof this._id == "undefined")
+		{
+			console.log('GET ID NULLL');
+		}
 		return this._id;
 	}
 	
 	public set Id(id: string)
 	{
+		if (id == null || typeof id == "undefined")
+		{
+			throw new Error('ID IS NULL');
+		}
+		
 		this._id = id;
-		this._html.id = id;
+		this._html.setAttribute('id', id);
 		
 		this._children.forEach((component: ChildComponentBase) =>
 		{
-			component.Id = component.Id + "_" + this.Id;
+			component.Id = this.Id + '_' + component.Id;
 		});
 	}
 	
@@ -65,13 +79,23 @@ export class CompositeComponentBase
 		this._html.innerHTML = html;
 	}
 	
+	public appendWithHtml(html: string) : void
+	{
+		this._html.append(html);
+	}
+	
+	public appendWithElement(element: HTMLElement) : void
+	{
+		this._html.append(element);
+	}
+	
 	public addChild(component: ChildComponentBase): void
 	{
 		this._children.push(component);
 		
 		component.Parent = this;
 		
-		this._html.append(component.Dom);
+		this.appendWithElement(component.Dom);
 	}
 	
 	public removeChild(component: ChildComponentBase): void
@@ -82,5 +106,15 @@ export class CompositeComponentBase
 		component.Parent = null;
 		
 		JFactory.removeById(component.Id);
+	}
+	
+	public printId(tab: string = '') : void
+	{
+		console.log(tab + this.Id);
+		
+		this._children.forEach((child: ChildComponentBase) => 
+		{
+			child.printId(tab + '   ');
+		});
 	}
 }

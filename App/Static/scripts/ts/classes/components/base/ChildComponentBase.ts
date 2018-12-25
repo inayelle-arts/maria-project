@@ -17,13 +17,16 @@ export abstract class ChildComponentBase extends CompositeComponentBase
 	{
 		if (parentComponent != null)
 		{
-			this.Id = parentComponent.Id + "_" + this._initId;
+			this.Id = parentComponent.Id + "_" + this.Id;
 		} else
 		{
 			this.Id = this._initId;
 		}
 		
-		this.Dom.id = this.Id;
+		if (this.Id == null || typeof this.Id == "undefined")
+		{
+			throw new Error('ID IS NULL');
+		}
 		
 		this._parentComponent = parentComponent;
 	}

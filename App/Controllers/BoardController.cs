@@ -1,4 +1,5 @@
 using App.Controllers.Base;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
