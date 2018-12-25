@@ -1,7 +1,7 @@
 ﻿namespace TestApi.Services.Interfaces
 {
-    public interface IDbInitializerService
-    {
-        void Seed();
-    }
+	public interface IDbInitializerService
+	{
+		void Seed();
+	}
 }

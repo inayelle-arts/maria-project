@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using NLog.Config;
+using NLog;
+using NLog.LayoutRenderers;
 using NLog.Web;
 
 namespace App
@@ -14,40 +14,40 @@ namespace App
 		public static readonly string AppRoot;
 		public static readonly string WebRoot;
 		public static readonly string ConfigRoot;
-	    public static readonly string LogsRoot;
+		public static readonly string LogsRoot;
 		public static readonly string ConfigFile;
-	    public static readonly string NLogConfigFile;
+		public static readonly string NLogConfigFile;
 
 
-        static Program()
+		static Program()
 		{
 			AppRoot        = Directory.GetCurrentDirectory();
 			WebRoot        = Path.Combine(AppRoot, "Static");
 			ConfigRoot     = Path.Combine(AppRoot, "Configuration");
 			ConfigFile     = Path.Combine("app.dev.json");
-		    NLogConfigFile = Path.Combine(ConfigRoot,"nlog.xml");
-		    LogsRoot       = Path.Combine(AppRoot,"Logs");
+			NLogConfigFile = Path.Combine(ConfigRoot, "nlog.xml");
+			LogsRoot       = Path.Combine(AppRoot, "Logs");
 		}
 
 		public static void Main(string[] args)
 		{
-		    var logger = CreateLogger();
-		    try
-		    {
-		        logger.Debug("init main");
+			var logger = CreateLogger();
+			try
+			{
+				logger.Debug("init main");
 
-                var host = CreateWebHostBuilder(args);
-			    host.Build().Run();
-		    }
-		    catch (Exception ex)
-		    {
-		        logger.Error(ex, "Stopped program because of exception");
-		        throw;
-		    }
-		    finally
-		    {
-		        NLog.LogManager.Shutdown();
-		    }
+				var host = CreateWebHostBuilder(args);
+				host.Build().Run();
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex, "Stopped program because of exception");
+				throw;
+			}
+			finally
+			{
+				LogManager.Shutdown();
+			}
 		}
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
@@ -73,14 +73,13 @@ namespace App
 			return builder.Build();
 		}
 
-	    private static NLog.Logger CreateLogger()
-	    {
-	        NLog.LayoutRenderers.LayoutRenderer.Register("logsdir", (logEvent) => LogsRoot);
+		private static Logger CreateLogger()
+		{
+			LayoutRenderer.Register("logsdir", logEvent => LogsRoot);
 
-            return NLogBuilder
-                .ConfigureNLog(NLogConfigFile)
-                .GetCurrentClassLogger();
-        }
-
+			return NLogBuilder
+			       .ConfigureNLog(NLogConfigFile)
+			       .GetCurrentClassLogger();
+		}
 	}
 }

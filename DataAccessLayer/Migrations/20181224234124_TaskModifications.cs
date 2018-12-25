@@ -2,190 +2,190 @@
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class TaskModifications : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_HistoryPoint_History_HistoryId",
-                table: "HistoryPoint");
+	public partial class TaskModifications : Migration
+	{
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.DropForeignKey(
+					"FK_HistoryPoint_History_HistoryId",
+					"HistoryPoint");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_Users_AssigneeId",
-                table: "Tasks");
+			migrationBuilder.DropForeignKey(
+					"FK_Tasks_Users_AssigneeId",
+					"Tasks");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_History_HistoryId",
-                table: "Tasks");
+			migrationBuilder.DropForeignKey(
+					"FK_Tasks_History_HistoryId",
+					"Tasks");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_HistoryPoint",
-                table: "HistoryPoint");
+			migrationBuilder.DropPrimaryKey(
+					"PK_HistoryPoint",
+					"HistoryPoint");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_History",
-                table: "History");
+			migrationBuilder.DropPrimaryKey(
+					"PK_History",
+					"History");
 
-            migrationBuilder.RenameTable(
-                name: "HistoryPoint",
-                newName: "HistoryPoints");
+			migrationBuilder.RenameTable(
+					"HistoryPoint",
+					newName: "HistoryPoints");
 
-            migrationBuilder.RenameTable(
-                name: "History",
-                newName: "Histories");
+			migrationBuilder.RenameTable(
+					"History",
+					newName: "Histories");
 
-            migrationBuilder.RenameIndex(
-                name: "IX_HistoryPoint_HistoryId",
-                table: "HistoryPoints",
-                newName: "IX_HistoryPoints_HistoryId");
+			migrationBuilder.RenameIndex(
+					"IX_HistoryPoint_HistoryId",
+					table: "HistoryPoints",
+					newName: "IX_HistoryPoints_HistoryId");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "AssigneeId",
-                table: "Tasks",
-                nullable: true,
-                oldClrType: typeof(int));
+			migrationBuilder.AlterColumn<int>(
+					"AssigneeId",
+					"Tasks",
+					nullable: true,
+					oldClrType: typeof(int));
 
-            migrationBuilder.AddColumn<int>(
-                name: "CreatorId",
-                table: "Tasks",
-                nullable: false,
-                defaultValue: 0);
+			migrationBuilder.AddColumn<int>(
+					"CreatorId",
+					"Tasks",
+					nullable: false,
+					defaultValue: 0);
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_HistoryPoints",
-                table: "HistoryPoints",
-                column: "Id");
+			migrationBuilder.AddPrimaryKey(
+					"PK_HistoryPoints",
+					"HistoryPoints",
+					"Id");
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Histories",
-                table: "Histories",
-                column: "Id");
+			migrationBuilder.AddPrimaryKey(
+					"PK_Histories",
+					"Histories",
+					"Id");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_CreatorId",
-                table: "Tasks",
-                column: "CreatorId");
+			migrationBuilder.CreateIndex(
+					"IX_Tasks_CreatorId",
+					"Tasks",
+					"CreatorId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_HistoryPoints_Histories_HistoryId",
-                table: "HistoryPoints",
-                column: "HistoryId",
-                principalTable: "Histories",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+			migrationBuilder.AddForeignKey(
+					"FK_HistoryPoints_Histories_HistoryId",
+					"HistoryPoints",
+					"HistoryId",
+					"Histories",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Cascade);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_Users_AssigneeId",
-                table: "Tasks",
-                column: "AssigneeId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+			migrationBuilder.AddForeignKey(
+					"FK_Tasks_Users_AssigneeId",
+					"Tasks",
+					"AssigneeId",
+					"Users",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Restrict);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_Users_CreatorId",
-                table: "Tasks",
-                column: "CreatorId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+			migrationBuilder.AddForeignKey(
+					"FK_Tasks_Users_CreatorId",
+					"Tasks",
+					"CreatorId",
+					"Users",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Cascade);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_Histories_HistoryId",
-                table: "Tasks",
-                column: "HistoryId",
-                principalTable: "Histories",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-        }
+			migrationBuilder.AddForeignKey(
+					"FK_Tasks_Histories_HistoryId",
+					"Tasks",
+					"HistoryId",
+					"Histories",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Restrict);
+		}
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_HistoryPoints_Histories_HistoryId",
-                table: "HistoryPoints");
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.DropForeignKey(
+					"FK_HistoryPoints_Histories_HistoryId",
+					"HistoryPoints");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_Users_AssigneeId",
-                table: "Tasks");
+			migrationBuilder.DropForeignKey(
+					"FK_Tasks_Users_AssigneeId",
+					"Tasks");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_Users_CreatorId",
-                table: "Tasks");
+			migrationBuilder.DropForeignKey(
+					"FK_Tasks_Users_CreatorId",
+					"Tasks");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_Histories_HistoryId",
-                table: "Tasks");
+			migrationBuilder.DropForeignKey(
+					"FK_Tasks_Histories_HistoryId",
+					"Tasks");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Tasks_CreatorId",
-                table: "Tasks");
+			migrationBuilder.DropIndex(
+					"IX_Tasks_CreatorId",
+					"Tasks");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_HistoryPoints",
-                table: "HistoryPoints");
+			migrationBuilder.DropPrimaryKey(
+					"PK_HistoryPoints",
+					"HistoryPoints");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Histories",
-                table: "Histories");
+			migrationBuilder.DropPrimaryKey(
+					"PK_Histories",
+					"Histories");
 
-            migrationBuilder.DropColumn(
-                name: "CreatorId",
-                table: "Tasks");
+			migrationBuilder.DropColumn(
+					"CreatorId",
+					"Tasks");
 
-            migrationBuilder.RenameTable(
-                name: "HistoryPoints",
-                newName: "HistoryPoint");
+			migrationBuilder.RenameTable(
+					"HistoryPoints",
+					newName: "HistoryPoint");
 
-            migrationBuilder.RenameTable(
-                name: "Histories",
-                newName: "History");
+			migrationBuilder.RenameTable(
+					"Histories",
+					newName: "History");
 
-            migrationBuilder.RenameIndex(
-                name: "IX_HistoryPoints_HistoryId",
-                table: "HistoryPoint",
-                newName: "IX_HistoryPoint_HistoryId");
+			migrationBuilder.RenameIndex(
+					"IX_HistoryPoints_HistoryId",
+					table: "HistoryPoint",
+					newName: "IX_HistoryPoint_HistoryId");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "AssigneeId",
-                table: "Tasks",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
+			migrationBuilder.AlterColumn<int>(
+					"AssigneeId",
+					"Tasks",
+					nullable: false,
+					oldClrType: typeof(int),
+					oldNullable: true);
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_HistoryPoint",
-                table: "HistoryPoint",
-                column: "Id");
+			migrationBuilder.AddPrimaryKey(
+					"PK_HistoryPoint",
+					"HistoryPoint",
+					"Id");
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_History",
-                table: "History",
-                column: "Id");
+			migrationBuilder.AddPrimaryKey(
+					"PK_History",
+					"History",
+					"Id");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_HistoryPoint_History_HistoryId",
-                table: "HistoryPoint",
-                column: "HistoryId",
-                principalTable: "History",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+			migrationBuilder.AddForeignKey(
+					"FK_HistoryPoint_History_HistoryId",
+					"HistoryPoint",
+					"HistoryId",
+					"History",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Cascade);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_Users_AssigneeId",
-                table: "Tasks",
-                column: "AssigneeId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+			migrationBuilder.AddForeignKey(
+					"FK_Tasks_Users_AssigneeId",
+					"Tasks",
+					"AssigneeId",
+					"Users",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Cascade);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_History_HistoryId",
-                table: "Tasks",
-                column: "HistoryId",
-                principalTable: "History",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-        }
-    }
+			migrationBuilder.AddForeignKey(
+					"FK_Tasks_History_HistoryId",
+					"Tasks",
+					"HistoryId",
+					"History",
+					principalColumn: "Id",
+					onDelete: ReferentialAction.Restrict);
+		}
+	}
 }

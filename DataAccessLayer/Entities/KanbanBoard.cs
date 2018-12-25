@@ -2,9 +2,8 @@
 
 namespace DataAccessLayer.Entities
 {
-
-    [Table("KanbanBoards")]
-    public class KanbanBoard : Board
-    {
-    }
+	[Table("KanbanBoards")]
+	public class KanbanBoard : Board
+	{
+	}
 }
