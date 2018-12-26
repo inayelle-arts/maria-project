@@ -1,18 +1,10 @@
 <div class="task">
     <div class="task-header card-header" role="tab" style="padding: 10px">
-        <p class="task-name" readonly>
+        <p class="task-name">
             **Task name**
         </p>
         <div class="task-code badge badge-light task-non-action">
             **Task code**
-        </div>
-        <div class="task-actions">
-            <div class="badge badge-light task-action">
-                edit
-            </div>
-            <div class="badge badge-light task-action">
-                move
-            </div>
         </div>
     </div>
     <div class="task-body card-body text-secondary" style="display: none;">
@@ -22,8 +14,17 @@
         <p class="card-text">
 
         </p>
-        <div class="card-footer text-muted">
-            2 days ago
+    </div>
+    <div class="rounded-bottom text-center pt-3" style="padding: 0.4rem 0.2rem !important">
+        <div class="task-actions">
+            <div class="badge badge-light task-action task-action-more hoverable">
+                more
+            </div>
+            <div class="badge badge-light task-action task-action-move hoverable">
+                move
+            </div>
         </div>
     </div>
 </div>
+
+@* data-toggle="modal" data-target="#more-task-modal" *@

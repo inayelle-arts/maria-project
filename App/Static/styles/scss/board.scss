@@ -1,5 +1,8 @@
 @import "colors";
 
+html, body {
+}
+
 #loading-modal {
 	top: 20px;
 	right: 20px;
@@ -53,6 +56,11 @@
 // COLUMN
 
 .column {
+	overflow-y: auto;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	min-height: 100%;
 }
 
 .column-panel {
@@ -124,11 +132,16 @@
 	//flex-grow: 2;
 }
 
+.task-actions {
+	display: inline;
+}
+
 .task-non-action {
 	cursor: default;
 }
 
 .task-action {
+	font-size: 16px;
 	cursor: pointer;
 	@extend .task-non-action;
 }
@@ -139,6 +152,36 @@
 }
 
 .task-description {
+	font-size: 16px;
+	color: $secondary-foreground-color;
 	padding: 0.5rem;
 	margin: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.125);;
+}
+
+#more-task-modal {
+	@media (min-width: 1200px) {
+		.modal-dialog {
+			max-width: 972px;
+		}
+	}
+	
+	.modal-content {
+		background: $task-color;
+	}
+}
+
+#more-task-code {
+	&:before {
+		content: '#';
+	}
+}
+
+#more-task-modal-save {
+	cursor: pointer;
+	font-size: 18px;
+}
+
+#more-task-body {
+	display: flex;
 }

@@ -2,6 +2,7 @@ import {ContentComponent} from "./components/ContentComponent";
 import {BoardUnit} from "./units/BoardUnit";
 import {RepositoryManager} from "./repos/RepositoryManager";
 import {LoadingModalComponent} from "./components/modals/LoadingModalComponent";
+import {MoreModalComponent} from "./components/modals/MoreModalComponent";
 
 export class BoardController
 {

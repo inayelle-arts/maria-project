@@ -1,6 +1,5 @@
 import {LayoutComponentBase} from "./base/LayoutComponentBase";
 import {JEventType} from "../enums/JEventType";
-import {JAttribute} from "../enums/JAttribute";
 
 export class TaskComponent extends LayoutComponentBase
 {
