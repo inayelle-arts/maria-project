@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Constraints;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Models;
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace BusinessLayer.Managers
@@ -15,19 +18,21 @@ namespace BusinessLayer.Managers
 		private readonly HistoryManager         _historyManager;
 		private readonly IRepository<BoardTask> _taskRepository;
 
-		public TaskManager(DefaultContext context, HistoryManager historyManager, IRepository<BoardTask> taskRepository)
+		public TaskManager(DefaultContext         context,
+		                   HistoryManager         historyManager,
+		                   IRepository<BoardTask> taskRepository)
 		{
-			_context        = context;
-			_historyManager = historyManager;
-			_taskRepository = taskRepository;
+			_context           = context;
+			_historyManager    = historyManager;
+			_taskRepository    = taskRepository;
 		}
 
-        /// <summary>
-        ///     Creates Task from Task instance based on TaskViewModel
-        /// </summary>
-        /// <param name="task"></param>
-        /// <exception cref="InvalidOperationException">throws when user dibil</exception>
-        public async Task<BoardTask> CreateAsync(BoardTask task)
+		/// <summary>
+		///     Creates Task from Task instance based on TaskViewModel
+		/// </summary>
+		/// <param name="task"></param>
+		/// <exception cref="InvalidOperationException">throws when user dibil</exception>
+		public async Task<BoardTask> CreateAsync(BoardTask task)
 		{
 			var parentColumn = _context.Columns.FirstOrDefault(c => c.Id == task.ColumnId);
 			var creator      = _context.Users.FirstOrDefault(c => c.Id == task.CreatorId);
@@ -81,6 +86,11 @@ namespace BusinessLayer.Managers
 		{
 			var query = await _taskRepository.GetAllAsync();
 			return query.ToList();
+		}
+
+		public async Task MoveTaskAsync(BoardTask task)
+		{
+			await _taskRepository.UpdateAsync(task);
 		}
 	}
 }

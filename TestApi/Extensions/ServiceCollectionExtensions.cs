@@ -23,11 +23,12 @@ namespace TestApi.Extensions
 
 		public static IServiceCollection AddManagers(this IServiceCollection services)
 		{
-			return services
-			       .AddScoped<TaskManager>()
-			       .AddScoped<ColumnManager>()
-			       .AddScoped<BoardManager>()
-			       .AddScoped<HistoryManager>();
+			return services.AddScoped<UserManager>()
+			               .AddScoped<ConstraintManager>()
+			               .AddScoped<TaskManager>()
+			               .AddScoped<ColumnManager>()
+			               .AddScoped<BoardManager>()
+			               .AddScoped<HistoryManager>();
 		}
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)

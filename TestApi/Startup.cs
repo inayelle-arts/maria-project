@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using NLog.Fluent;
 using TestApi.Extensions;
 using TestApi.Services.Classes;
 using TestApi.Services.Interfaces;
@@ -31,6 +33,12 @@ namespace TestApi
 			        .AddJsonOptions(
 					        options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 			        );
+
+			foreach (var service in services)
+			{
+				Console.WriteLine(
+						$"Service: {service.ServiceType.FullName}\n      Lifetime: {service.Lifetime}\n      Instance: {service.ImplementationType?.FullName}");
+			}
 		}
 
 		public override void Configure(IApplicationBuilder app)
@@ -38,7 +46,7 @@ namespace TestApi
 			app.EnvironmentDependentConfiguration(Environment);
 
 			app.UseCors("DefaultPolicy");
-			
+
 			app.UseMvc();
 		}
 	}

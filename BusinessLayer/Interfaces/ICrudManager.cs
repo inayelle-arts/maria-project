@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.Interfaces
 {
-	public interface ICrudManager<TEntity, TId> where TEntity : class
+	public interface ICrudManager<TEntity, in TId> where TEntity : class
 	{
 		Task<TEntity> GetAsync(TId id);
 
