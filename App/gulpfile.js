@@ -31,6 +31,11 @@ function prepareMaterialKit()
     gulp.src(`${librariesRoot}/material-kit/assets/js/material-kit.js`)
         .pipe(gulp.dest(`${destScripts}/material-kit`));
 
+    gulp.src(`${librariesRoot}/mdbootstrap/css/mdb.css`)
+        .pipe(gulp.dest(`${destStyles}/`));
+
+    gulp.src(`${librariesRoot}/mdbootstrap/css/bootstrap.css`)
+        .pipe(gulp.dest(`${destStyles}/`));
 
     return gulp.src(
         `${librariesRoot}/material-kit/assets/scss/**/*`)

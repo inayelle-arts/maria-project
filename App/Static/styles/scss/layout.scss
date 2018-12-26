@@ -1,11 +1,13 @@
 @import "imports";
 
 a {
+	
 	&:link, &:visited, &:active {
 		color: $foreground-color;
 	}
 	
 	&:hover {
+		text-decoration: none;
 		color: darken($foreground-color, 5%);
 	}
 }
@@ -52,4 +54,9 @@ header {
 	.btn-group {
 		margin: 0;
 	}
+}
+
+#project-name {
+	text-align: center;
+	font-size: 28px;
 }

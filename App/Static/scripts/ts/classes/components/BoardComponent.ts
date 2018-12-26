@@ -25,14 +25,13 @@ export class BoardComponent extends LayoutComponentBase
 		this._columnContainer.removeChild(component);
 	}
 	
-	public set Name(value: string)
+	public set BoardName(value: string)
 	{
 		this.JDom.find('.board-name').text(value);
 	}
 	
-	public printId(tab: string = ''): void
+	public set ProjectName(value: string)
 	{
-		super.printId(tab);
-		this._columnContainer.printId(tab);
+		$("#project-name").text(value);
 	}
 }

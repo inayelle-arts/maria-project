@@ -21,7 +21,8 @@ export class BoardUnit extends UnitBase<BoardEntity, BoardComponent>
 	
 	private initialize(): void
 	{
-		this.Component.Name = this.Entity.name;
+		this.Component.BoardName = this.Entity.name;
+		this.Component.ProjectName = this.Entity.project.name;
 		
 		this.Entity.columns.forEach((entity: ColumnEntity) =>
 		{

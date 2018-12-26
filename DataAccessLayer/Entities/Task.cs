@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DataAccessLayer.Entities.Constraints.Abstract;
 
@@ -23,6 +24,8 @@ namespace DataAccessLayer.Entities
 
 		[Required]
 		public string Code { get; set; }
+
+		public DateTime CreationDate { get; set; }
 
 		public virtual ICollection<Label>                    Labels      { get; set; }
 		public virtual ICollection<Comment>                  Comments    { get; set; }

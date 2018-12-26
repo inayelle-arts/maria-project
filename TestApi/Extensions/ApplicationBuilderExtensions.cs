@@ -16,13 +16,13 @@ namespace TestApi.Extensions
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
-					app.SeedDatabase();
 					break;
 				}
-				case "Development.NoDbInit":
+				case "Development.DbInit":
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
+					app.SeedDatabase();
 					break;
 				}
 				case "Production":

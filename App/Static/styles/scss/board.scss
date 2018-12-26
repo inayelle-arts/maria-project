@@ -1,28 +1,62 @@
 @import "colors";
 
+#loading-modal {
+	top: 20px;
+	right: 20px;
+	border: 3px solid $board-header-color;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	animation: spin 2s linear infinite;
+}
+
+.separator {
+	border-left: 1px solid gray;
+	height: available;
+	width: 10px;
+	margin: 0 15px;
+	padding: 0;
+	
+	&:after {
+		content: '\00a0'
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 //BOARD
 
 .board-header {
+	padding: 10px 10px 10px 25px;
+	display: flex;
+	align-items: center;
 	border-top: 1px solid gray;
 	background-color: $board-header-color;
 }
 
 .board-name {
 	color: $foreground-color;
+	font-size: 24px;
 }
 
 .board-options {
-	float: right;
 }
 
 
 // COLUMN
 
 .column {
-	
 }
 
 .column-panel {
+	height: available;
 }
 
 .column-border {
@@ -32,7 +66,7 @@
 
 .column-header {
 	display: flex;
-	//align-items: top;
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -50,6 +84,7 @@
 .column-add-task-button, .column-settings-button {
 	display: inline;
 	padding: 0.4rem 0.4rem !important;
+	
 	.material-icons {
 		font-size: 0.8rem;
 	}
@@ -67,25 +102,39 @@
 
 .task-header {
 	cursor: pointer;
+	
+	display: flex;
+	column-count: 2;
+	flex-wrap: wrap;
+	align-items: flex-start;
 }
 
 .task-name {
-	padding: 0;
-	margin: 0;
-	width: 48%;
-	display: inline-block;
+	cursor: pointer;
+	border: none;
+	flex: 0 60%;
+	flex-grow: 1;
+	text-transform: capitalize;
 }
 
 .task-code {
+	padding: 0.2rem 0.4rem;
 	text-align: right;
-	padding: 0;
-	margin: 0;
-	width: 48%;
-	display: inline-block;
+	//flex: 0 40%;
+	//flex-grow: 2;
+}
+
+.task-non-action {
+	cursor: default;
+}
+
+.task-action {
+	cursor: pointer;
+	@extend .task-non-action;
 }
 
 .task-body {
-	padding: 0.5rem;
+	padding: 0;
 	margin: 0;
 }
 

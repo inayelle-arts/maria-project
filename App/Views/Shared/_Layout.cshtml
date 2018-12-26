@@ -9,12 +9,14 @@
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="~/styles/css/bootstrap.css" asp-append-version="true"/>
+    <link type="text/css" rel="stylesheet" href="~/styles/css/mdb.css" asp-append-version="true"/>
     <link type="text/css" rel="stylesheet" href="~/styles/css/layout.css" asp-append-version="true"/>
 </head>
 <body>
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="~/scripts/js/jquery/jquery.validate.js"></script>
-<script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js"></script>
+@* <script type="text/javascript" src="~/scripts/js/material-kit/material-kit.js"></script> *@
 <script type="text/javascript" src="~/scripts/js/main.js" defer="defer"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" defer="defer"></script>
 
@@ -42,17 +44,17 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3">
-                    <p id="board-title" style="text-align: center">@ViewBag.BoardName</p>
+                    <div id="project-name"></div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3">
-                    <div class="btn-group">
-                        <a class="btn">
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-sm btn-light">
                             Profile
                         </a>
-                        <a class="btn">
+                        <a class="btn btn-sm btn-light">
                             Projects
                         </a>
-                        <a class="btn">
+                        <a class="btn btn-sm btn-light">
                             Recents
                         </a>
                     </div>

@@ -1,7 +1,5 @@
-using App.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Extensions
 {
@@ -16,7 +14,6 @@ namespace App.Extensions
 				{
 					app.UseDeveloperExceptionPage();
 					app.UseDatabaseErrorPage();
-					app.SeedDatabase();
 					break;
 				}
 				case "Production":
@@ -29,12 +26,6 @@ namespace App.Extensions
 					break;
 				}
 			}
-		}
-
-		private static void SeedDatabase(this IApplicationBuilder app)
-		{
-			var initializer = app.ApplicationServices.GetRequiredService<IDbInitializerService>();
-			initializer.Seed();
 		}
 	}
 }
