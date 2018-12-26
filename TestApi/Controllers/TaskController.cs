@@ -8,160 +8,134 @@ using BusinessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using TestApi.Controllers.Response;
 using TestApi.Extensions;
+using TestApi.Infrastructure;
 using TestApi.ViewModels;
 using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace TestApi.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class TaskController : ControllerBase
-	{
-		private readonly TaskManager       _taskManager;
-		private readonly ColumnManager     _columnManager;
-		private readonly UserManager       _userManager;
-		private readonly ConstraintManager _constraintManager;
+    public class TaskController : ApiControllerBase
+    {
+        private readonly TaskManager _taskManager;
+        private readonly ColumnManager _columnManager;
+        private readonly UserManager _userManager;
+        private readonly ConstraintManager _constraintManager;
 
-		public TaskController(TaskManager       taskManager,
-		                      ConstraintManager constraintManager,
-		                      ColumnManager     columnManager,
-		                      UserManager       userManager)
-		{
-			_taskManager       = taskManager;
-			_columnManager     = columnManager;
-			_userManager       = userManager;
-			_constraintManager = constraintManager;
-		}
+        public TaskController(TaskManager taskManager,
+                              ConstraintManager constraintManager,
+                              ColumnManager columnManager,
+                              UserManager userManager)
+        {
+            _taskManager = taskManager;
+            _columnManager = columnManager;
+            _userManager = userManager;
+            _constraintManager = constraintManager;
+        }
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<BoardTask>>> Get()
-		{
-			return await _taskManager.GetAllAsync();
-		}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BoardTask>>> Get()
+        {
+            return await _taskManager.GetAllAsync();
+        }
 
-		[HttpGet("{id}")]
-		public async Task<ActionResult<BoardTask>> Get(int id)
-		{
-			return await _taskManager.GetAsync(id);
-		}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BoardTask>> Get(int id)
+        {
+            return await _taskManager.GetAsync(id);
+        }
 
-		[HttpPost]
-		public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] TaskViewModel model)
-		{
-			var response = new ResponseResultSet<int>();
+        [HttpPost]
+        public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] TaskViewModel model)
+        {
+            var response = new ResponseResultSet<int>();
 
-			try
-			{
-				var newTask = await _taskManager.CreateAsync(model.ToTask());
-				response.Status = ResponseStatus.Success;
-				response.Data   = newTask.Id;
-			}
-			catch (InvalidOperationException)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Bad Request";
-			}
-			catch (Exception)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Internal Error";
-			}
+            try
+            {
+                var newTask = await _taskManager.CreateAsync(model.ToTask());
+                response.Status = ResponseStatus.Success;
+                response.Data = newTask.Id;
+            }
+            catch (InvalidOperationException)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Bad Request";
+            }
+            catch (Exception)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Internal Error";
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[HttpPut]
-		public async Task<ActionResult<ResponseResultSet<Empty>>> Update(BoardTask task)
-		{
-			var response = new ResponseResultSet<Empty>();
+        [HttpPut]
+        public async Task<ActionResult<ResponseResultSet<Empty>>> Update(BoardTask task)
+        {
+            var response = new ResponseResultSet<Empty>();
 
-			try
-			{
-				await _taskManager.UpdateAsync(task);
-				response.Status = ResponseStatus.Success;
-			}
-			catch (InvalidOperationException)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Bad Request";
-			}
-			catch (Exception)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Internal Error";
-			}
+            try
+            {
+                await _taskManager.UpdateAsync(task);
+                response.Status = ResponseStatus.Success;
+            }
+            catch (InvalidOperationException)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Bad Request";
+            }
+            catch (Exception)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Internal Error";
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[HttpDelete("{id}")]
-		public async Task<ActionResult<ResponseResultSet<Empty>>> Delete(int id)
-		{
-			var response = new ResponseResultSet<Empty>();
+        [HttpDelete("d{id}")]
+        public async Task<ActionResult<ResponseResultSet<Empty>>> Delete(int id)
+        {
+            var response = new ResponseResultSet<Empty>();
 
-			try
-			{
-				await _taskManager.DeleteAsync(id);
-				response.Status = ResponseStatus.Success;
-			}
-			catch (InvalidOperationException)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Bad Request";
-			}
-			catch (Exception)
-			{
-				response.Status  = ResponseStatus.Failed;
-				response.Message = "Internal Error";
-			}
+            try
+            {
+                await _taskManager.DeleteAsync(id);
+                response.Status = ResponseStatus.Success;
+            }
+            catch (InvalidOperationException)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Bad Request";
+            }
+            catch (Exception)
+            {
+                response.Status = ResponseStatus.Failed;
+                response.Message = "Internal Error";
+            }
 
-			return response;
-		}
+            return response;
+        }
 
-		[HttpPost("move")]
-		public async Task<ResponseResultSet<IEnumerable<string>>> MoveTask([FromBody] MoveTaskViewModel viewModel)
-		{
-			if (ModelState.IsValid)
-			{
-				var model = new MoveTaskModel
-				{
-						Task         = await _taskManager.GetAsync(viewModel.TaskId),
-						TargetColumn = await _columnManager.GetAsync(viewModel.TargetColumnId),
-						User         = await _userManager.GetAsync(viewModel.UserId)
-				};
+        [ServiceFilter(typeof(CommandValidationFilter<MoveTaskViewModel, MoveTaskCommand>))]
+        [HttpPost("move")]
+        public async Task<ResponseResultSetBase> MoveTask([FromBody] MoveTaskViewModel viewModel)
+        { 
+            var command = Command as MoveTaskCommand;
+            if (command == null)
+            {
+                return InvalidCommand();
+            }
 
-				var result = await _constraintManager.ValidateConstraintsAsync(model);
+            var task = command.Task;    
+            task.Column = command.TargetColumn;
+            await _taskManager.UpdateAsync(task);
 
-				if (!result.IsValid)
-				{
-					return new ResponseResultSet<IEnumerable<string>>
-					{
-							Status  = ResponseStatus.Failed,
-							Message = "Constraint test failed",
-							Data    = result.Errors
-					};
-				}
-
-				var task = model.Task;
-				task.Column = model.TargetColumn;
-				await _taskManager.UpdateAsync(task);
-
-				return new ResponseResultSet<IEnumerable<string>>
-				{
-						Status  = ResponseStatus.Success,
-						Message = "OK"
-				};
-			}
-			else
-			{
-				var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
-				return new ResponseResultSet<IEnumerable<string>>
-				{
-						Status  = ResponseStatus.Failed,
-						Message = "Model state is invalid",
-						Data    = errors
-				};
-			}
-		}
-	}
+            return new ResponseResultSet<Empty>()
+            {
+                Status = ResponseStatus.Success,
+                Message = "OK"
+            };
+        }
+    }
 }

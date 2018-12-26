@@ -58,7 +58,12 @@ namespace BusinessLayer.Managers
 
 		public async Task UpdateAsync(BoardTask task)
 		{
-			var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
+		    if (task == null)
+		    {
+                throw  new ArgumentNullException(nameof(task));
+		    }
+
+		    var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
 			var constraints =
 					_context.TaskConstraints.Where(c => c.OwnerId == task.Id).ToList();
 

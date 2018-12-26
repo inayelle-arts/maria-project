@@ -3,8 +3,8 @@ using BusinessLayer.Models;
 
 namespace BusinessLayer.Constraints
 {
-	public interface IConstraintValidator
+	public interface IConstraintValidator<T> where T:CommandBase
 	{
-		Task<ConstraintValidationResultSet> ValidateAsync(MoveTaskModel model);
+		Task<ConstraintValidationResultSet> ValidateAsync(T command);
 	}
 }

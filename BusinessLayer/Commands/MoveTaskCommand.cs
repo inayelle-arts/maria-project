@@ -5,13 +5,19 @@ using Task = DataAccessLayer.Entities.Task;
 
 namespace BusinessLayer.Models
 {
-	public sealed class MoveTaskModel
-	{
+	public sealed class MoveTaskCommand : CommandBase
+    {
 		public Task   Task         { get; set; }
 		public Column TargetColumn { get; set; }
-		public User   User         { get; set; }
 
-		public async Task<ConstraintValidationResultSet> Accept(IConstraintValidator validator)
+        public bool IsValid {
+            get
+            {
+                return Task!=null&&TargetColumn!=null;
+            }
+        }
+
+        public async Task<ConstraintValidationResultSet> Accept(IConstraintValidator<MoveTaskCommand> validator)
 		{
 			return await validator.ValidateAsync(this);
 		}

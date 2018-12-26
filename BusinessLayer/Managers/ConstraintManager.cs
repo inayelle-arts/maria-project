@@ -8,15 +8,17 @@ namespace BusinessLayer.Managers
 	public sealed class ConstraintManager
 	{
 		private readonly DefaultContext _context;
+	    private readonly ConstraintCollection _constraints;
 
-		public ConstraintManager(DefaultContext context)
+		public ConstraintManager(DefaultContext context, ConstraintCollection constraints)
 		{
 			_context = context;
+		    _constraints = constraints;
 		}
 
-		public async Task<ConstraintValidationResultSet> ValidateConstraintsAsync(MoveTaskModel model)
+		public async Task<ConstraintValidationResultSet> ValidateConstraintsAsync(MoveTaskCommand model)
 		{
-			var lockedConstraint = new LockedTaskConstraint(_context);
+			var lockedConstraint = _constraints.GetConstraint<LockedTaskConstraint>();
 			return await model.Accept(lockedConstraint);
 		}
 	}

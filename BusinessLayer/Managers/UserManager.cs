@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BusinessLayer.Interfaces;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
 
 namespace BusinessLayer.Managers
@@ -55,5 +56,14 @@ namespace BusinessLayer.Managers
 			_context.Users.Remove(user);
 			await _context.SaveChangesAsync();
 		}
+
+
+
+	    public async Task<User> GetCurrentUserAsync()
+	    {
+            //todo: remove/remake when authorization added
+	        return await _context.Users.FirstAsync();
+	    }
+
 	}
 }

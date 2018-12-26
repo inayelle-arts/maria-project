@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NLog.Fluent;
 using TestApi.Extensions;
+using TestApi.Infrastructure;
 using TestApi.Services.Classes;
 using TestApi.Services.Interfaces;
 
@@ -26,7 +27,9 @@ namespace TestApi
 		{
 			services.AddDefaultContext(Configuration);
 			services.AddSingleton<IDbInitializerService, TestDbInitializerService>();
+		    services.AddInfrastructure();
 			services.AddRepositories();
+		    services.AddConstraints();
 			services.AddManagers();
 			services.AddCorsPolicy(Configuration);
 			services.AddMvc()
