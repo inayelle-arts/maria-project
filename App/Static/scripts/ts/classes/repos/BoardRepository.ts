@@ -1,5 +1,6 @@
 import {BoardEntity} from "../entities/BoardEntity";
 import {RepositoryBase} from "./RepositoryBase";
+import {ErrorModalComponent} from "../components/modals/ErrorModalComponent";
 
 export class BoardRepository
 {
@@ -45,7 +46,7 @@ export class BoardRepository
 			board = JSON.parse(json) as BoardEntity;
 		} catch (e)
 		{
-			console.log('json parse failed ' + e);
+			ErrorModalComponent.getInstance().showWithMessage('Data loss. Please, reload the page');
 		}
 		
 		return board;

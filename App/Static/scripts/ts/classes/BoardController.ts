@@ -3,6 +3,7 @@ import {BoardUnit} from "./units/BoardUnit";
 import {RepositoryManager} from "./repos/RepositoryManager";
 import {LoadingModalComponent} from "./components/modals/LoadingModalComponent";
 import {UnitManager} from "./units/UnitManager";
+import {ErrorModalComponent} from "./components/modals/ErrorModalComponent";
 
 export class BoardController
 {
@@ -35,11 +36,12 @@ export class BoardController
 		});
 		
 		this._loadingModalComponent.show();
+		
+		ErrorModalComponent.getInstance().showWithMessage('run');
 	}
 	
 	private async loadBoardAsync(): Promise<BoardUnit>
 	{
-		console.log('loadBoard');
 		return await this.loadBoardUnitAsync();
 	}
 	

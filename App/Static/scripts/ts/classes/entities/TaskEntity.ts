@@ -2,6 +2,7 @@ import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
 import {RepositoryManager} from "../repos/RepositoryManager";
 import {ResponseResultSet} from "../repos/ResponseResultSet";
+import {SequentialContraintEntity} from "./SequentialContraintEntity";
 
 @JsonObject("TaskEntity")
 export class TaskEntity extends EntityBase
@@ -23,9 +24,12 @@ export class TaskEntity extends EntityBase
 	
 	public creatorId: number = 1;
 	
+	public constraints: Array<SequentialContraintEntity>;
+	
 	constructor()
 	{
 		super();
+		this.constraints = new Array<SequentialContraintEntity>();
 	}
 	
 	public async save(): Promise<ResponseResultSet>

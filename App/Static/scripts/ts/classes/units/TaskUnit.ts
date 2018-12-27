@@ -3,9 +3,9 @@ import {TaskEntity} from "../entities/TaskEntity";
 import {TaskComponent} from "../components/TaskComponent";
 import {MoreModalComponent} from "../components/modals/MoreModalComponent";
 import {UnitManager} from "./UnitManager";
-import {ColumnEntity} from "../entities/ColumnEntity";
 import {ColumnUnit} from "./ColumnUnit";
-import {ResponseResultSet} from "../repos/ResponseResultSet";
+import {ErrorModalComponent} from "../components/modals/ErrorModalComponent";
+import {SequentialContraintEntity} from "../entities/SequentialContraintEntity";
 
 export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 {
@@ -26,6 +26,19 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 	{
 		this.Component.Name = this.Entity.name;
 		this.Component.Code = this.Entity.code == undefined ? "new" : this.Entity.code;
+		
+		// 	<div class="task-code-parent badge badge-light task-non-action">
+		// 		**Task code**
+		// </div>
+		
+		const jParentCodes = this.Component.JDom;
+		this.Entity.constraints.forEach((constr) =>
+		{
+			jParentCodes.append(`
+		 	<div class="task-code-parent badge badge-light task-non-action" style="font-size: 10px !important;">
+				${constr.parentTaskId}
+			</div>`);
+		});
 		
 		let shortDescription = this.Entity.description;
 		if (shortDescription != null && shortDescription.length > 60)
@@ -52,6 +65,12 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 			this.fixEntity();
 			this.taskActionMove();
 		});
+		
+		cComponent.jFindByClass('task-action-add-parent').bind('click', () =>
+		{
+			this.fixEntity();
+			this.taskActionAddParent();
+		});
 	}
 	
 	private fixEntity()
@@ -64,6 +83,7 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 		realEntity.description = e.description;
 		realEntity.name = e.name;
 		realEntity.creatorId = e.creatorId;
+		realEntity.constraints = this.Entity.constraints;
 		this.Entity = realEntity;
 	}
 	
@@ -94,12 +114,19 @@ export class TaskUnit extends UnitBase<TaskEntity, TaskComponent>
 						this.Entity.columnId = targetColId;
 						currentColumn.Component.removeTaskComponent(this.Component);
 						c.Component.addTaskComponent(this.Component);
+						this.bindEvents();
+						this.Component.initialize();
 					} else
 					{
-						console.log(resultSet);
+						ErrorModalComponent.getInstance().showWithMessage(resultSet.message, resultSet.data.toString());
 					}
 				});
 			});
 		});
+	}
+	
+	private taskActionAddParent()
+	{
+		
 	}
 }

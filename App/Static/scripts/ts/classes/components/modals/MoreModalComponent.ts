@@ -1,6 +1,10 @@
 import {CompositeComponentBase} from "../base/CompositeComponentBase";
 import {TaskEntity} from "../../entities/TaskEntity";
 import {JFactory} from "../JFactory";
+import {UnitManager} from "../../units/UnitManager";
+import {SequentialContraintEntity} from "../../entities/SequentialContraintEntity";
+import {ErrorModalComponent} from "./ErrorModalComponent";
+import {TaskUnit} from "../../units/TaskUnit";
 
 export class MoreModalComponent extends CompositeComponentBase
 {
@@ -32,8 +36,57 @@ export class MoreModalComponent extends CompositeComponentBase
 		this.entity = entity;
 		this.bindValues();
 		
+		$('#more-task-add-parent').bind('click', () =>
+		{
+			this.loadOtherTasks();
+		});
+		
 		// @ts-ignore
 		this.JDom.modal();
+	}
+	
+	private loadOtherTasks()
+	{
+		const boardUnit = UnitManager.getInstance().BoardUnit;
+		console.log('add parent click [' + this.entity.id + ']');
+		
+		const taskList = this.jFindByClass('dropdown-primary');
+		taskList.html('');
+		
+		const otherTasks = boardUnit.getTaskUnitsExcept(this.entity.id);
+		
+		otherTasks.forEach((unit: TaskUnit) =>
+		{
+			const elem = $(`<div style="color: black;" class="dropdown-item text-right" 
+style="font-size: 10px; max-width: 20% !important;">
+${unit.Entity.name} #${unit.Entity.code}
+</div>`);
+			
+			taskList.append(elem);
+			
+			elem.bind('click', () =>
+			{
+				$('#more-task-add-parent').unbind().focusout();
+				const parentTaskId = unit.Entity.id;
+				const ownerTaskId = this.entity.id;
+				
+				const constraint = new SequentialContraintEntity();
+				constraint.parentTaskId = parentTaskId;
+				constraint.ownerId = ownerTaskId;
+				
+				constraint.save().then((resultSet) =>
+				{
+					const modal = ErrorModalComponent.getInstance();
+					if (resultSet.status == '0')
+					{
+						modal.showWithMessage('Constraint added');
+					} else
+					{
+						modal.showWithMessage(resultSet.message);
+					}
+				});
+			});
+		});
 	}
 	
 	private bindValues(): void

@@ -23,6 +23,11 @@ export class ColumnUnit extends UnitBase<ColumnEntity, ColumnComponent>
 		this.initialize();
 	}
 	
+	public get TaskUnits() : Array<TaskUnit>
+	{
+		return this._taskUnits;
+	}
+	
 	private initialize(): void
 	{
 		this.Component.Name = this.Entity.name;
