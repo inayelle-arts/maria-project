@@ -38,8 +38,12 @@ namespace BusinessLayer.Managers
 			var creator      = _context.Users.FirstOrDefault(c => c.Id == task.CreatorId);
 
 			if (parentColumn == null || creator == null)
-				throw new InvalidOperationException(
-						$"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}");
+			{
+				var message =
+						$"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}";
+				Console.WriteLine(message);
+				throw new InvalidOperationException(message);
+			}
 
 			var taskHistory = await _historyManager.CreateHistoryAsync();
 			task.HistoryId = taskHistory.Id;

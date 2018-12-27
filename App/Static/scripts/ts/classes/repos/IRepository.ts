@@ -1,8 +1,10 @@
+import {ResponseResultSet} from "./ResponseResultSet";
+
 export interface IRepository<TEntity>
 {
-	add(entity: TEntity): boolean;
+	addAsync(entity: TEntity): Promise<ResponseResultSet>;
 	
-	update(entity: TEntity): boolean;
+	update(entity: TEntity): Promise<ResponseResultSet>;
 	
 	delete(entity: TEntity): boolean;
 	

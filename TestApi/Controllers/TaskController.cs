@@ -14,6 +14,8 @@ using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace TestApi.Controllers
 {
+	[Route("api/[controller]")]
+	[ApiController]
     public class TaskController : ApiControllerBase
     {
         private readonly TaskManager _taskManager;

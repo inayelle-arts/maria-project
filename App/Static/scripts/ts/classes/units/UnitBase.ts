@@ -3,7 +3,7 @@ import {RepositoryManager} from "../repos/RepositoryManager";
 
 export abstract class UnitBase<TEntity, TComponent extends ChildComponentBase>
 {
-	private readonly _entity: TEntity;
+	private _entity: TEntity;
 	private readonly _component: TComponent;
 	
 	constructor(entity: TEntity, component: TComponent)
@@ -15,6 +15,11 @@ export abstract class UnitBase<TEntity, TComponent extends ChildComponentBase>
 	public get Entity(): TEntity
 	{
 		return this._entity;
+	}
+	
+	public set Entity(e: TEntity)
+	{
+		this._entity = e;
 	}
 	
 	public get Component(): TComponent

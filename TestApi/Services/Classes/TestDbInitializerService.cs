@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using Microsoft.AspNetCore.Rewrite.Internal.PatternSegments;
 using TestApi.Services.Interfaces;
 
 namespace TestApi.Services.Classes
@@ -20,6 +21,15 @@ namespace TestApi.Services.Classes
 			_context.Database.EnsureDeleted();
 			_context.Database.EnsureCreated();
 
+			Func<DateTime> randomDateTime = () =>
+			{
+				DateTime start = new DateTime(2016, 1, 1);
+				Random   gen   = new Random();
+				int      range = (DateTime.Today - start).Days;
+
+				return start.AddDays(gen.Next(range));
+			};
+
 			var company = new Company
 			{
 					Description = "The MARIA testing company",
@@ -35,7 +45,7 @@ namespace TestApi.Services.Classes
 
 			var project = new Project
 			{
-					Name        = "maria_project",
+					Name        = "Maria Project",
 					ProjectRoot = user,
 					Description = "ave maria! deus vult!"
 			};
@@ -64,7 +74,7 @@ namespace TestApi.Services.Classes
 			var board = new Board
 			{
 					Team    = team,
-					Name    = "maria_demo",
+					Name    = "Maria Demo Board",
 					Creator = user,
 					Project = project,
 					History = new History()
@@ -82,7 +92,7 @@ namespace TestApi.Services.Classes
 
 			var column = new Column
 			{
-					Name    = "col1",
+					Name    = "Todo",
 					Board   = board,
 					Creator = user,
 					History = new History()
@@ -92,23 +102,25 @@ namespace TestApi.Services.Classes
 
 			var t1 = new Task
 			{
-					History     = history,
-					Column      = column,
-					Name        = "t1",
-					Description = "the first task",
-					Code        = "0001",
-					Creator     = user
+					History      = history,
+					Column       = column,
+					Name         = "t1",
+					Description  = "the first task",
+					Code         = "0001",
+					Creator      = user,
+					CreationDate = randomDateTime()
 			};
 
 			var t2 = new Task
 			{
-					History     = history,
-					Column      = column,
-					Name        = "t2",
-					Description = "the second task",
-					Code        = "0002",
-					Assignee    = user,
-					Creator     = user
+					History      = history,
+					Column       = column,
+					Name         = "t2",
+					Description  = "the second task",
+					Code         = "0002",
+					Assignee     = user,
+					Creator      = user,
+					CreationDate = randomDateTime()
 			};
 
 			var t1c1 = new Comment
@@ -135,7 +147,6 @@ namespace TestApi.Services.Classes
 			_context.Teams.Add(team);
 			_context.Tasks.Add(t1);
 			_context.Tasks.Add(t2);
-
 
 			_context.SaveChanges();
 		}

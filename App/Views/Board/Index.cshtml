@@ -1,6 +1,69 @@
 <link href="~/styles/css/board.css" type="text/css" rel="stylesheet" asp-append-version="true"/>
-<script type="text/javascript" src="~/scripts/js/typedjson.js"></script>
 <script type="text/javascript" src="~/scripts/js/board.js" defer="defer"></script>
-
 <div id="content">
+    <div id="loading-modal" style="display: none;"></div>
 </div>
+
+<div class="modal fade" id="more-task-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h6 id="more-task-code"></h6>
+                <h4 class="modal-title w-100 font-weight-bold" id="more-task-name">
+                    **Task name**
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3" id="more-task-body">
+                <div id="more-task-description">
+                    qwe!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="new-task-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Create new task</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    @* <i class="fas fa-envelope prefix grey-text"></i> *@
+                    <input type="text" id="new-task-modal-name" class="form-control validate" placeholder="Task name...">
+                </div>
+
+                <div class="md-form mb-4">
+                    <i class="fas fa-lock prefix grey-text"></i>
+                    <textarea placeholder="Description goes here..." type="text" id="new-task-modal-description" class="form-control validate w-100" style="margin: 0;">
+                    </textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-sm btn-light" id="new-task-modal-confirm">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <div id="new-task-modal" role="dialog" style="width: 300px; height: 40px; position: absolute; display: none;"> *@
+@*     <textarea id="new-task-modal-name"> *@
+@*         New task name *@
+@*     </textarea> *@
+@* </div> *@
+
+@* <div class="text-center"> *@
+@*     <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch *@
+@*         Modal Login Form</a> *@
+@* </div> *@

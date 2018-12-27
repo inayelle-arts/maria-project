@@ -23,6 +23,7 @@ namespace DataAccessLayer.Classes
 			               .Include(b => b.Columns)
 			               .ThenInclude(c => c.Tasks)
 			               .Include(b => b.Constraints)
+			               .Include(b => b.Project)
 			               .Include(b => b.Labels)
 			               .Include(b => b.Team);
 		}
@@ -35,6 +36,7 @@ namespace DataAccessLayer.Classes
 			               .Include(b => b.Constraints)
 			               .Include(b => b.Labels)
 			               .Include(b => b.Team)
+			               .Include(b => b.Project)
 			               .FirstOrDefault(b => b.Id == id);
 		}
 

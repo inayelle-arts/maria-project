@@ -9,10 +9,12 @@
     "private": true,
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.6.3",
+        "bootstrap": "^4.2.1",
         "jquery": "^3.3.1",
         "jquery-validation": "^1.19.0",
         "json2typescript": "^1.0.6",
         "material-kit": "^2.0.4",
+        "mdbootstrap": "^4.6.0"
     },
     "devDependencies": {
         "@types/jquery": "^3.3.28",
