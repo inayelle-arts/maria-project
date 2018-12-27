@@ -1,6 +1,7 @@
 import {TaskEntity} from "./TaskEntity";
 import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
+import {ResponseResultSet} from "../repos/ResponseResultSet";
 
 @JsonObject("ColumnEntity")
 export class ColumnEntity extends EntityBase
@@ -52,7 +53,7 @@ export class ColumnEntity extends EntityBase
 		this._tasks = value;
 	}
 	
-	save(): boolean
+	async save(): Promise<ResponseResultSet>
 	{
 		throw new Error('not implemented');
 	}

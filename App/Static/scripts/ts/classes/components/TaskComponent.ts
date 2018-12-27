@@ -1,4 +1,5 @@
 import {LayoutComponentBase} from "./base/LayoutComponentBase";
+import {JEventType} from "../enums/JEventType";
 
 export class TaskComponent extends LayoutComponentBase
 {
@@ -16,30 +17,32 @@ export class TaskComponent extends LayoutComponentBase
 	{
 		this._taskContentOpened = false;
 		
-		this.JDom.find('.task-header').bind('click', () =>
+		const jTaskHeader = this.jFindByClass('task-header');
+		
+		jTaskHeader.bind(JEventType.Click, () =>
 		{
-			this.onTaskHeaderClick();
+			this.onTaskHeaderClick(jTaskHeader);
 		});
 	}
 	
 	public set Name(value: string)
 	{
-		this.JDom.find('.task-name').text(value);
+		this.jFindByClass('task-name').text(value);
 	}
 	
 	public set Description(value: string)
 	{
-		this.JDom.find('.task-description').text(value);
+		this.jFindByClass('task-description').text(value);
 	}
 	
 	public set Code(value: string)
 	{
-		this.JDom.find('.task-code').text('#' + value);
+		this.jFindByClass('task-code').text('#' + value);
 	}
 	
-	private onTaskHeaderClick(): void
+	private onTaskHeaderClick(sender: JQuery<HTMLElement>): void
 	{
-		const jTaskBody = this.JDom.find('.task-body');
+		const jTaskBody = this.jFindByClass('task-body');
 		
 		if (this._taskContentOpened)
 		{

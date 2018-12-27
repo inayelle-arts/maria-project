@@ -34,7 +34,7 @@ export class ColumnComponent extends LayoutComponentBase
 	
 	public addTaskComponent(c: TaskComponent): void
 	{
-		this._taskContainer.addChild(c);
+		this._taskContainer.prependChild(c);
 	}
 	
 	public removeTaskComponent(c: TaskComponent): void

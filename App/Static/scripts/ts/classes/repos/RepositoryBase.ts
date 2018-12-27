@@ -1,10 +1,11 @@
 import {RepositoryManager} from "./RepositoryManager";
 import {IRepository} from "./IRepository";
 import {JsonConvert} from "json2typescript";
+import {ResponseResultSet} from "./ResponseResultSet";
 
 export abstract class RepositoryBase<TEntity> implements IRepository<TEntity>
 {
-	private readonly _manager : RepositoryManager;
+	private readonly _manager: RepositoryManager;
 	private readonly _converter = new JsonConvert();
 	
 	public constructor(manager: RepositoryManager)
@@ -12,17 +13,17 @@ export abstract class RepositoryBase<TEntity> implements IRepository<TEntity>
 		this._manager = manager;
 	}
 	
-	protected get Manager() : RepositoryManager
+	protected get Manager(): RepositoryManager
 	{
 		return this._manager;
 	}
 	
-	protected get JsonConverter() : JsonConvert
+	protected get JsonConverter(): JsonConvert
 	{
 		return this._converter;
 	}
 	
-	abstract add(entity: TEntity): boolean;
+	abstract async addAsync(entity: TEntity): Promise<ResponseResultSet>;
 	
 	abstract delete(entity: TEntity): boolean;
 	
@@ -30,5 +31,5 @@ export abstract class RepositoryBase<TEntity> implements IRepository<TEntity>
 	
 	abstract getAll(): TEntity[];
 	
-	abstract update(entity: TEntity): boolean;
+	abstract async update(entity: TEntity): Promise<ResponseResultSet>;
 }

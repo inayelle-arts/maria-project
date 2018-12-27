@@ -1,4 +1,6 @@
+import {ResponseResultSet} from "../repos/ResponseResultSet";
+
 export abstract class EntityBase
 {
-	public abstract save() : boolean;
+	public abstract async save() : Promise<ResponseResultSet>;
 }

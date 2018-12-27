@@ -24,9 +24,6 @@ namespace App
 
 		public override void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDefaultContext(Configuration);
-			services.AddSingleton<IDbInitializerService, AppDbInitializerService>();
-			services.AddScoped<IRepository<Task>, TaskRepository>();
 			services.AddMvc();
 		}
 

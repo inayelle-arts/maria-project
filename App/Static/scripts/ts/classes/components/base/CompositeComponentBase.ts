@@ -79,14 +79,19 @@ export class CompositeComponentBase
 		this._html.innerHTML = html;
 	}
 	
-	public appendWithHtml(html: string) : void
+	public appendWithHtml(html: string): void
 	{
 		this._html.append(html);
 	}
 	
-	public appendWithElement(element: HTMLElement) : void
+	public appendWithElement(element: HTMLElement): void
 	{
 		this._html.append(element);
+	}
+	
+	public prependWithElement(element: HTMLElement): void
+	{
+		this._html.prepend(element);
 	}
 	
 	public addChild(component: ChildComponentBase): void
@@ -96,6 +101,15 @@ export class CompositeComponentBase
 		component.Parent = this;
 		
 		this.appendWithElement(component.Dom);
+	}
+	
+	public prependChild(component: ChildComponentBase): void
+	{
+		this._children.push(component);
+		
+		component.Parent = this;
+		
+		this.prependWithElement(component.Dom);
 	}
 	
 	public removeChild(component: ChildComponentBase): void
@@ -108,13 +122,41 @@ export class CompositeComponentBase
 		JFactory.removeById(component.Id);
 	}
 	
-	public printId(tab: string = '') : void
+	public async show(): Promise<void>
 	{
-		console.log(tab + this.Id);
-		
-		this._children.forEach((child: ChildComponentBase) => 
+		return new Promise(() =>
 		{
-			child.printId(tab + '   ');
+			this.JDom.show();
 		});
+	}
+	
+	public async hide(): Promise<void>
+	{
+		return new Promise(() =>
+		{
+			this.JDom.hide();
+		});
+	}
+	
+	public jFind(selector: string): JQuery<HTMLElement>
+	{
+		return this.JDom.find(selector);
+	}
+	
+	public jFindByClass(className: string): JQuery<HTMLElement>
+	{
+		return this.JDom.find(`.${className}`);
+	}
+	
+	public jFindAllByClass(className: string): JQuery<HTMLElement>[]
+	{
+		const result = new Array<JQuery<HTMLElement>>();
+		
+		$(`.${className}`).toArray().forEach((element) =>
+		{
+			result.push($(element));
+		});
+		
+		return result;
 	}
 }

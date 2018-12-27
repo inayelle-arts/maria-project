@@ -1,72 +1,46 @@
 import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
+import {RepositoryManager} from "../repos/RepositoryManager";
+import {ResponseResultSet} from "../repos/ResponseResultSet";
+import {SequentialContraintEntity} from "./SequentialContraintEntity";
 
 @JsonObject("TaskEntity")
 export class TaskEntity extends EntityBase
 {
 	@JsonProperty("id", Number)
-	private _id: number;
+	public id: number;
 	
 	@JsonProperty("name", String)
-	private _name: string;
+	public name: string;
 	
 	@JsonProperty("description", String)
-	private _description: string;
+	public description: string;
 	
 	@JsonProperty("code", String)
-	private _code: string;
+	public code: string;
 	
-	// constructor(id: number, name: string, description: string, code: string)
-	// {
-	// 	super();
-	// 	this._id = id;
-	// 	this._name = name;
-	// 	this._description = description;
-	// 	this._code = code;
-	// }
+	@JsonProperty("columnId", String)
+	public columnId: number;
 	
-	get id(): number
+	public creatorId: number = 1;
+	
+	public constraints: Array<SequentialContraintEntity>;
+	
+	constructor()
 	{
-		return this._id;
+		super();
+		this.constraints = new Array<SequentialContraintEntity>();
 	}
 	
-	set id(value: number)
+	public async save(): Promise<ResponseResultSet>
 	{
-		this._id = value;
+		const repo = RepositoryManager.getInstance().Task;
+		return await repo.addAsync(this);
 	}
 	
-	get name(): string
+	public async moveToColumnAsync(columnId: number) : Promise<ResponseResultSet>
 	{
-		return this._name;
-	}
-	
-	set name(value: string)
-	{
-		this._name = value;
-	}
-	
-	get description(): string
-	{
-		return this._description;
-	}
-	
-	set description(value: string)
-	{
-		this._description = value;
-	}
-	
-	get code(): string
-	{
-		return this._code;
-	}
-	
-	set code(value: string)
-	{
-		this._code = value;
-	}
-	
-	public save(): boolean
-	{
-		throw new Error('not implemented');
+		const repo = RepositoryManager.getInstance().Task;
+		return await repo.moveTask(this, columnId);
 	}
 }

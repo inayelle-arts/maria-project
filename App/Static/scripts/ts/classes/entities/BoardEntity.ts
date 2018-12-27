@@ -1,6 +1,8 @@
 import {ColumnEntity} from "./ColumnEntity";
 import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
+import {ProjectEntity} from "./ProjectEntity";
+import {ResponseResultSet} from "../repos/ResponseResultSet";
 
 @JsonObject("BoardEntity")
 export class BoardEntity extends EntityBase
@@ -14,13 +16,8 @@ export class BoardEntity extends EntityBase
 	@JsonProperty("columns", [ColumnEntity])
 	private _columns: Array<ColumnEntity>;
 	
-	// constructor(id: number, name: string, columns: ColumnEntity[])
-	// {
-	// 	super();
-	// 	this._id = id;
-	// 	this._name = name;
-	// 	this._columns = columns;
-	// }
+	@JsonProperty("project", ProjectEntity)
+	private _project: ProjectEntity;
 	
 	get id(): number
 	{
@@ -52,7 +49,17 @@ export class BoardEntity extends EntityBase
 		this._columns = value;
 	}
 	
-	public save(): boolean
+	get project(): ProjectEntity
+	{
+		return this._project;
+	}
+	
+	set project(value: ProjectEntity)
+	{
+		this._project = value;
+	}
+	
+	async save(): Promise<ResponseResultSet>
 	{
 		throw new Error('not implemented');
 	}

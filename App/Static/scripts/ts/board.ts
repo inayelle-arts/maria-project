@@ -4,5 +4,5 @@ $(() =>
 {
 	const controller = new BoardController();
 	
-	controller.initialize();
+	controller.run();
 });

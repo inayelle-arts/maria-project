@@ -1,16 +1,43 @@
 <div class="task">
     <div class="task-header card-header" role="tab" style="padding: 10px">
-        <div class="task-name">
+        <p class="task-name">
             **Task name**
+        </p>
+        <div class="codes">
+            <div class="task-code badge badge-light task-non-action">
+                **Task code**
+            </div>
         </div>
-        <span class="task-code label">
-            **Task code**
-        </span>
     </div>
     <div class="task-body card-body text-secondary" style="display: none;">
-        <h5 class="task-description card-title">Secondary card title</h5>
-        <p class="card-text">
+        <h5 class="task-description card-title">
+            **Task description**
+        </h5>
+        <div class="rounded-bottom text-center pt-3" style="padding: 0.4rem 0.2rem !important">
+            <div class="task-actions">
+                <div class="btn btn-sm btn-light task-action task-action-more hoverable">
+                    more
+                </div>
+                <div class="dropdown">
 
-        </p>
+                    <div class="btn btn-sm btn-light task-action task-action-move hoverable dropdown-toggle" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                        move
+                    </div>
+
+                    <div class="dropdown-menu dropdown-primary">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        @* <div class="btn btn-sm btn-light task-action task-action-move hoverable" data-toggle="dropdown" *@
+        @*      aria-haspopup="true" aria-expanded="false"> *@
+        @*     move *@
+        @* </div> *@
     </div>
 </div>
+
+@* data-toggle="modal" data-target="#more-task-modal" *@
