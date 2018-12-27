@@ -1,3 +1,4 @@
+using BusinessLayer.Constraints;
 using BusinessLayer.Managers;
 using DataAccessLayer;
 using DataAccessLayer.Classes;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TestApi.Infrastructure;
 
 namespace TestApi.Extensions
 {
@@ -23,11 +25,12 @@ namespace TestApi.Extensions
 
 		public static IServiceCollection AddManagers(this IServiceCollection services)
 		{
-			return services
-			       .AddScoped<TaskManager>()
-			       .AddScoped<ColumnManager>()
-			       .AddScoped<BoardManager>()
-			       .AddScoped<HistoryManager>();
+			return services.AddScoped<UserManager>()
+			               .AddScoped<ConstraintManager>()
+			               .AddScoped<TaskManager>()
+			               .AddScoped<ColumnManager>()
+			               .AddScoped<BoardManager>()
+			               .AddScoped<HistoryManager>();
 		}
 
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -51,5 +54,22 @@ namespace TestApi.Extensions
 
 			return services;
 		}
-	}
+
+	    public static IServiceCollection AddConstraints(this IServiceCollection services)
+	    {
+	        services.AddScoped<LockedTaskConstraint>();
+	        services.AddScoped<ConstraintCollection>();
+            return services;
+	    }
+
+	    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+	    {
+	        services.AddScoped(typeof(CommandFactory<>));
+	        services.AddScoped(typeof(CommandValidationFilter<,>));
+            return services;
+	    }
+
+
+
+    }
 }
