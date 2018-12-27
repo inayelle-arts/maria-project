@@ -11,9 +11,11 @@ export class SequentialContraintEntity extends EntityBase
 	{
 		const json = JSON.stringify(this);
 		
+		console.log(json);
+		
 		const resultJson = await $.post(
 			{
-				url: 'http://localhost:8765/task/constraint',
+				url: 'http://localhost:8765/api/task/constraint',
 				method: 'POST',
 				data: json,
 				dataType: "json",
