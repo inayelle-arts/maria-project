@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using BusinessLayer.Models;
+using BusinessLayer.Commands;
 
 namespace BusinessLayer.Constraints
 {

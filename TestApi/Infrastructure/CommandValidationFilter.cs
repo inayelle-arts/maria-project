@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Commands;
 using BusinessLayer.Constraints;
 using BusinessLayer.Managers;
-using BusinessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using TestApi.Controllers.Response;
@@ -54,7 +52,7 @@ namespace TestApi.Infrastructure
         {
             ConstraintValidationResultSet resultSet = null;
 
-            if (command is MoveTaskCommand mtc)
+            if (command is TaskMoveCommand mtc)
             {
                 resultSet = await _constraintManager.ValidateConstraintsAsync(mtc);
             }

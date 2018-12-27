@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BusinessLayer.Constraints;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TestApi.Controllers.Response
@@ -11,6 +11,15 @@ namespace TestApi.Controllers.Response
     {
         public ResponseStatus Status { get; set; }
         public string Message { get; set; }
+
+        public static ResponseResultSetBase Ok()
+        {
+            return new ResponseResultSet<Empty>()
+            {
+                Status = ResponseStatus.Success,
+                Message = "OK"
+            };
+        }
 
         public static ResponseResultSetBase FromConstraintResult(ConstraintValidationResultSet resultSet)
         {
@@ -61,5 +70,13 @@ namespace TestApi.Controllers.Response
             };
         }
 
+        public static ResponseResultSetBase FromException(Exception exception)
+        {
+            return new ResponseResultSet<Empty>()
+            {
+                Status = ResponseStatus.Failed,
+                Message = exception.Message,
+            };
+        }
     }
 }

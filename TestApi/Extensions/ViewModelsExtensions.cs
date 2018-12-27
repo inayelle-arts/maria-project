@@ -6,34 +6,25 @@ namespace TestApi.Extensions
 {
 	internal static class ViewModelsExtensions
 	{
-		public static BoardTask ToTask(this TaskViewModel taskViewModel)
-		{
-			return new BoardTask
-			{
-					Name      = taskViewModel.Name,
-					ColumnId  = taskViewModel.ColumnId,
-					CreatorId = taskViewModel.CreatorId
-			};
-		}
-
-		public static Column ToColumn(this ColumnViewModel columnViewModel)
+	
+		public static Column ToColumn(this CreateColumnViewModel createColumnViewModel)
 		{
 			return new Column
 			{
-					Name      = columnViewModel.Name,
-					BoardId   = columnViewModel.BoardId,
-					CreatorId = columnViewModel.CreatorId
+					Name      = createColumnViewModel.Name,
+					BoardId   = createColumnViewModel.BoardId,
+					CreatorId = createColumnViewModel.CreatorId
 			};
 		}
 
-		public static Board ToBoard(this BoardViewModel boardViewModel)
+		public static Board ToBoard(this CreateBoardViewModel createBoardViewModel)
 		{
 			return new Board
 			{
-					Name      = boardViewModel.Name,
-					ProjectId = boardViewModel.ProjectId,
-					CreatorId = boardViewModel.CreatorId,
-					TeamId    = boardViewModel.TeamId
+					Name      = createBoardViewModel.Name,
+					ProjectId = createBoardViewModel.ProjectId,
+					CreatorId = createBoardViewModel.CreatorId,
+					TeamId    = createBoardViewModel.TeamId
 			};
 		}
 	}
