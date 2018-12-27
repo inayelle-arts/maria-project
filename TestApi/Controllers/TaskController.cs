@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using BusinessLayer.Constraints;
+using BusinessLayer.Commands;
 using BusinessLayer.Managers;
-using BusinessLayer.Models;
+using DataAccessLayer.Entities.Constraints;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TestApi.Controllers.Response;
-using TestApi.Extensions;
 using TestApi.Infrastructure;
 using TestApi.ViewModels;
 using BoardTask = DataAccessLayer.Entities.Task;
@@ -44,30 +43,54 @@ namespace TestApi.Controllers
             return await _taskManager.GetAsync(id);
         }
 
+        [ServiceFilter(typeof(CommandValidationFilter<CreateTaskViewModel, TaskCreateCommand>))]
         [HttpPost]
-        public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] TaskViewModel model)
+        public async Task<ActionResult<ResponseResultSetBase>> Create([FromBody] CreateTaskViewModel model)
         {
-            var response = new ResponseResultSet<int>();
+            var command = Command as TaskCreateCommand;
+            if (command == null)
+            {
+                return InvalidCommand();
+            }
+
+            BoardTask task = new BoardTask()
+            {
+                Name = command.Name,
+                Column = command.Column,
+            };
 
             try
             {
-                var newTask = await _taskManager.CreateAsync(model.ToTask());
-                response.Status = ResponseStatus.Success;
-                response.Data = newTask.Id;
+                await _taskManager.CreateAsync(task);
             }
-            catch (InvalidOperationException)
+            catch (Exception e)
             {
-                response.Status = ResponseStatus.Failed;
-                response.Message = "Bad Request";
-            }
-            catch (Exception)
-            {
-                response.Status = ResponseStatus.Failed;
-                response.Message = "Internal Error";
+                return ResponseResultSetBase.FromException(e);
             }
 
-            return response;
+            return new ResponseResultSet<int>()
+            {
+                Status = ResponseStatus.Success,
+                Message = "OK",
+                Data = task.Id
+            };
         }
+
+        [HttpPost("constraint")]
+        public async Task<ActionResult<ResponseResultSetBase>> AddConstraint([FromBody]SequentialTaskConstraintEntity model)
+        {
+            try
+            {
+                await _taskManager.AddConstraintAsync(model);
+            }
+            catch (Exception e)
+            {
+                return ResponseResultSetBase.FromException(e);
+            }
+
+            return ResponseResultSetBase.Ok();
+        }
+
 
         [HttpPut]
         public async Task<ActionResult<ResponseResultSet<Empty>>> Update(BoardTask task)
@@ -117,17 +140,18 @@ namespace TestApi.Controllers
             return response;
         }
 
-        [ServiceFilter(typeof(CommandValidationFilter<MoveTaskViewModel, MoveTaskCommand>))]
+
+        [ServiceFilter(typeof(CommandValidationFilter<MoveTaskViewModel, TaskMoveCommand>))]
         [HttpPost("move")]
         public async Task<ResponseResultSetBase> MoveTask([FromBody] MoveTaskViewModel viewModel)
-        { 
-            var command = Command as MoveTaskCommand;
+        {
+            var command = Command as TaskMoveCommand;
             if (command == null)
             {
                 return InvalidCommand();
             }
 
-            var task = command.Task;    
+            var task = command.Task;
             task.Column = command.TargetColumn;
             await _taskManager.UpdateAsync(task);
 

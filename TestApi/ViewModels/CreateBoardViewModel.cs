@@ -1,6 +1,6 @@
 ﻿namespace TestApi.ViewModels
 {
-	public class BoardViewModel : ViewModelBase
+	public class CreateBoardViewModel : ViewModelBase
     {
 		public string Name      { get; set; }
 		public int    ProjectId { get; set; }

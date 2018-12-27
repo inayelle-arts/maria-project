@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
+using BusinessLayer.Commands;
 using BusinessLayer.Constraints;
-using BusinessLayer.Models;
 using DataAccessLayer;
 
 namespace BusinessLayer.Managers
@@ -16,7 +16,7 @@ namespace BusinessLayer.Managers
 		    _constraints = constraints;
 		}
 
-		public async Task<ConstraintValidationResultSet> ValidateConstraintsAsync(MoveTaskCommand model)
+		public async Task<ConstraintValidationResultSet> ValidateConstraintsAsync(TaskMoveCommand model)
 		{
 			var lockedConstraint = _constraints.GetConstraint<LockedTaskConstraint>();
 			return await model.Accept(lockedConstraint);

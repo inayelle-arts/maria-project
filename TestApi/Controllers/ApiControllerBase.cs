@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BusinessLayer.Models;
+﻿using BusinessLayer.Commands;
 using Microsoft.AspNetCore.Mvc;
 using TestApi.Controllers.Response;
 

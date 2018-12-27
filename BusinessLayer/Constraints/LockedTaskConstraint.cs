@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using BusinessLayer.Models;
+using BusinessLayer.Commands;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Constraints
 {
-	public sealed class LockedTaskConstraint : ConstraintValidatorBase, IConstraintValidator<MoveTaskCommand>
+	public sealed class LockedTaskConstraint : ConstraintValidatorBase, IConstraintValidator<TaskMoveCommand>
 	{
 		private readonly DefaultContext _context;
 
@@ -14,7 +14,7 @@ namespace BusinessLayer.Constraints
 			_context = context;
 		}
 
-		public async Task<ConstraintValidationResultSet> ValidateAsync(MoveTaskCommand command)
+		public async Task<ConstraintValidationResultSet> ValidateAsync(TaskMoveCommand command)
 		{
 		    if (!command.IsValid)
 		    {

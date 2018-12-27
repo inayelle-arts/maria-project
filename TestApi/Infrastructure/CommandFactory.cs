@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Commands;
 using BusinessLayer.Managers;
-using BusinessLayer.Models;
 using TestApi.ViewModels;
 
 namespace TestApi.Infrastructure
@@ -43,14 +41,24 @@ namespace TestApi.Infrastructure
         {
             switch (command)
             {
-                case MoveTaskCommand moveTaskCommand:
+                case TaskMoveCommand taskMoveCommand:
                     MoveTaskViewModel moveTaskViewModel = viewModel as MoveTaskViewModel;
                     if (moveTaskViewModel == null)
                     {
                         throw new ArgumentException(_invalidViewModelTypeErrorMessage);
                     }
-                    moveTaskCommand.Task = await _taskManager.GetAsync(moveTaskViewModel.TaskId);
-                    moveTaskCommand.TargetColumn = await _columnManager.GetAsync(moveTaskViewModel.TargetColumnId);
+                    taskMoveCommand.Task = await _taskManager.GetAsync(moveTaskViewModel.TaskId);
+                    taskMoveCommand.TargetColumn = await _columnManager.GetAsync(moveTaskViewModel.TargetColumnId);
+                    break;
+
+                case TaskCreateCommand taskCreateCommand:
+                    CreateTaskViewModel createTaskViewModel = viewModel as CreateTaskViewModel;
+                    if (createTaskViewModel==null)
+                    {
+                        throw new ArgumentException(_invalidViewModelTypeErrorMessage);
+                    }
+                    taskCreateCommand.Column = await _columnManager.GetAsync(createTaskViewModel.ColumnId);
+                    taskCreateCommand.Name = createTaskViewModel.Name;
                     break;
             }
         }
