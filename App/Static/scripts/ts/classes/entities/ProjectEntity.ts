@@ -2,7 +2,7 @@ import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
 
 @JsonObject("ProjectEntity")
-export class ProjectEntity extends EntityBase
+export class ProjectEntity
 {
 	@JsonProperty("id", Number)
 	private _id: number;

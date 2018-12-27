@@ -32,6 +32,7 @@ export class MoreModalComponent extends CompositeComponentBase
 		this.entity = entity;
 		this.bindValues();
 		
+		// @ts-ignore
 		this.JDom.modal();
 	}
 	

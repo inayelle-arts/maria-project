@@ -22,19 +22,23 @@ namespace BusinessLayer.Managers
 			_taskRepository = taskRepository;
 		}
 
-        /// <summary>
-        ///     Creates Task from Task instance based on TaskViewModel
-        /// </summary>
-        /// <param name="task"></param>
-        /// <exception cref="InvalidOperationException">throws when user dibil</exception>
-        public async Task<BoardTask> CreateAsync(BoardTask task)
+		/// <summary>
+		///     Creates Task from Task instance based on TaskViewModel
+		/// </summary>
+		/// <param name="task"></param>
+		/// <exception cref="InvalidOperationException">throws when user dibil</exception>
+		public async Task<BoardTask> CreateAsync(BoardTask task)
 		{
 			var parentColumn = _context.Columns.FirstOrDefault(c => c.Id == task.ColumnId);
 			var creator      = _context.Users.FirstOrDefault(c => c.Id == task.CreatorId);
 
 			if (parentColumn == null || creator == null)
-				throw new InvalidOperationException(
-						$"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}");
+			{
+				var message =
+						$"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}";
+				Console.WriteLine(message);
+				throw new InvalidOperationException(message);
+			}
 
 			var taskHistory = await _historyManager.CreateHistoryAsync();
 			task.HistoryId = taskHistory.Id;

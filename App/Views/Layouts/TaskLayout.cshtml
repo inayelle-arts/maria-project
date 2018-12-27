@@ -11,19 +11,28 @@
         <h5 class="task-description card-title">
             **Task description**
         </h5>
-        <p class="card-text">
+        <div class="rounded-bottom text-center pt-3" style="padding: 0.4rem 0.2rem !important">
+            <div class="task-actions">
+                <div class="btn btn-sm btn-light task-action task-action-more hoverable">
+                    more
+                </div>
+                <div class="dropdown">
 
-        </p>
-    </div>
-    <div class="rounded-bottom text-center pt-3" style="padding: 0.4rem 0.2rem !important">
-        <div class="task-actions">
-            <div class="badge badge-light task-action task-action-more hoverable">
-                more
-            </div>
-            <div class="badge badge-light task-action task-action-move hoverable">
-                move
+                    <a class="btn btn-sm btn-light task-action task-action-move hoverable dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">move</a>
+
+                    <div class="dropdown-menu dropdown-primary">
+                    </div>
+                </div>
+
             </div>
         </div>
+
+
+        @* <div class="btn btn-sm btn-light task-action task-action-move hoverable" data-toggle="dropdown" *@
+        @*      aria-haspopup="true" aria-expanded="false"> *@
+        @*     move *@
+        @* </div> *@
     </div>
 </div>
 

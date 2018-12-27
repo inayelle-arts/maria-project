@@ -1,7 +1,7 @@
 import {BoardEntity} from "../entities/BoardEntity";
 import {RepositoryBase} from "./RepositoryBase";
 
-export class BoardRepository extends RepositoryBase<BoardEntity>
+export class BoardRepository
 {
 	private static readonly Uri: string = "http://localhost:8765/api/board/";
 	

@@ -12,8 +12,8 @@ export class RepositoryManager
 	
 	protected constructor()
 	{
-		this._boardRepo = new BoardRepository(this);
-		this._columnRepo = new ColumnRepository(this);
+		this._boardRepo = new BoardRepository();
+		this._columnRepo = new ColumnRepository();
 		this._taskRepo = new TaskRepository(this);
 	}
 	

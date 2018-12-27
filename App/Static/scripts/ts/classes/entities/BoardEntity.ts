@@ -2,6 +2,7 @@ import {ColumnEntity} from "./ColumnEntity";
 import {EntityBase} from "./EntityBase";
 import {JsonObject, JsonProperty} from "json2typescript";
 import {ProjectEntity} from "./ProjectEntity";
+import {ResponseResultSet} from "../repos/ResponseResultSet";
 
 @JsonObject("BoardEntity")
 export class BoardEntity extends EntityBase
@@ -58,7 +59,7 @@ export class BoardEntity extends EntityBase
 		this._project = value;
 	}
 	
-	public save(): boolean
+	async save(): Promise<ResponseResultSet>
 	{
 		throw new Error('not implemented');
 	}

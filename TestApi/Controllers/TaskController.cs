@@ -34,15 +34,15 @@ namespace TestApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] TaskViewModel model)
+		public async Task<ActionResult<ResponseResultSet<object>>> Create([FromBody] TaskViewModel model)
 		{
-			var response = new ResponseResultSet<int>();
+			var response = new ResponseResultSet<object>();
 
 			try
 			{
 				var newTask = await _taskManager.CreateAsync(model.ToTask());
 				response.Status = ResponseStatus.Success;
-				response.Data   = newTask.Id;
+				response.Data   = new { id = newTask.Id, code = newTask.Code };
 			}
 			catch (InvalidOperationException)
 			{

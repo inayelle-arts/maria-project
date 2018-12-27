@@ -33,4 +33,14 @@ export class BoardUnit extends UnitBase<BoardEntity, BoardComponent>
 			this.Component.addColumnComponent(unit.Component);
 		});
 	}
+	
+	public getColumnUnitsExcept(entityId: number): Array<ColumnUnit>
+	{
+		return this._columnUnits.filter(x => x.Entity.id != entityId);
+	}
+	
+	public getExactColumnUnit(entityId: number): ColumnUnit
+	{
+		return this._columnUnits.find(x => x.Entity.id == entityId);
+	}
 }

@@ -2,7 +2,7 @@ import {IRepository} from "./IRepository";
 import {ColumnEntity} from "../entities/ColumnEntity";
 import {RepositoryBase} from "./RepositoryBase";
 
-export class ColumnRepository extends RepositoryBase<ColumnEntity>
+export class ColumnRepository
 {
 	add(entity: ColumnEntity): boolean
 	{

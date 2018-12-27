@@ -2,11 +2,12 @@ import {ContentComponent} from "./components/ContentComponent";
 import {BoardUnit} from "./units/BoardUnit";
 import {RepositoryManager} from "./repos/RepositoryManager";
 import {LoadingModalComponent} from "./components/modals/LoadingModalComponent";
-import {MoreModalComponent} from "./components/modals/MoreModalComponent";
+import {UnitManager} from "./units/UnitManager";
 
 export class BoardController
 {
 	private static readonly _repoManager = RepositoryManager.getInstance();
+	private static readonly _unitManager = UnitManager.getInstance();
 	
 	private readonly _contentComponent: ContentComponent;
 	private readonly _loadingModalComponent: LoadingModalComponent;
@@ -27,10 +28,10 @@ export class BoardController
 		
 		promise.then((boardUnit: BoardUnit) =>
 		{
-			console.log('board loaded');
+			BoardController._unitManager.BoardUnit = boardUnit;
 			this._boardUnit = boardUnit;
 			this._contentComponent.addChild(this._boardUnit.Component);
-			this._loadingModalComponent.hide();
+			this._loadingModalComponent.JDom.hide();
 		});
 		
 		this._loadingModalComponent.show();
@@ -44,11 +45,7 @@ export class BoardController
 	
 	private async loadBoardUnitAsync(): Promise<BoardUnit>
 	{
-		console.log('before getAsync');
 		const entity = await BoardController._repoManager.Board.getAsync(1);
-		console.log('getAsync done');
-		
-		console.log(entity.id + "!!!!!!!!");
 		
 		return new BoardUnit(entity);
 	}

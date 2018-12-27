@@ -89,6 +89,11 @@ export class CompositeComponentBase
 		this._html.append(element);
 	}
 	
+	public prependWithElement(element: HTMLElement): void
+	{
+		this._html.prepend(element);
+	}
+	
 	public addChild(component: ChildComponentBase): void
 	{
 		this._children.push(component);
@@ -96,6 +101,15 @@ export class CompositeComponentBase
 		component.Parent = this;
 		
 		this.appendWithElement(component.Dom);
+	}
+	
+	public prependChild(component: ChildComponentBase): void
+	{
+		this._children.push(component);
+		
+		component.Parent = this;
+		
+		this.prependWithElement(component.Dom);
 	}
 	
 	public removeChild(component: ChildComponentBase): void
