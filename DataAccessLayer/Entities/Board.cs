@@ -9,7 +9,7 @@ namespace DataAccessLayer.Entities
 		public Board()
 		{
 			Labels      = new List<Label>();
-			Columns     = new List<Column>();
+		    ColumnPositions = new List<ColumnPosition>();
 			Constraints = new List<BoardConstraintEntityBase>();
 		}
 
@@ -31,8 +31,10 @@ namespace DataAccessLayer.Entities
 		public virtual User Creator   { get; set; }
 		public         int  CreatorId { get; set; }
 
-		public virtual ICollection<Label>                     Labels      { get; set; }
-		public virtual ICollection<Column>                    Columns     { get; set; }
-		public virtual ICollection<BoardConstraintEntityBase> Constraints { get; set; }
+	    
+
+		public virtual ICollection<Label>                     Labels          { get; set; }
+		public virtual ICollection<ColumnPosition>            ColumnPositions { get; set; }
+		public virtual ICollection<BoardConstraintEntityBase> Constraints     { get; set; }
 	}
 }

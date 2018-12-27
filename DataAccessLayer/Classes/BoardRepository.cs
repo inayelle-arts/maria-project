@@ -20,7 +20,8 @@ namespace DataAccessLayer.Classes
 		public async Task<IQueryable<Board>> GetAllAsync()
 		{
 			return _context.Boards
-			               .Include(b => b.Columns)
+			               .Include(b => b.ColumnPositions)
+			               .ThenInclude(cp=>cp.Column) 
 			               .ThenInclude(c => c.Tasks)
 			               .Include(b => b.Constraints)
 			               .Include(b => b.Labels)
@@ -30,8 +31,9 @@ namespace DataAccessLayer.Classes
 		public async Task<Board> GetAsync(int id)
 		{
 			return _context.Boards
-			               .Include(b => b.Columns)
-			               .ThenInclude(c => c.Tasks)
+			               .Include(b => b.ColumnPositions)
+			               .ThenInclude(cp => cp.Column)
+                           .ThenInclude(c => c.Tasks)
 			               .Include(b => b.Constraints)
 			               .Include(b => b.Labels)
 			               .Include(b => b.Team)

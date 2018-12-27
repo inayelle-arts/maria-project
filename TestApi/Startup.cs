@@ -35,11 +35,6 @@ namespace TestApi
 					        options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 			        );
 
-			foreach (var service in services)
-			{
-				Console.WriteLine(
-						$"Service: {service.ServiceType.FullName}\n      Lifetime: {service.Lifetime}\n      Instance: {service.ImplementationType?.FullName}");
-			}
 		}
 
 		public override void Configure(IApplicationBuilder app)

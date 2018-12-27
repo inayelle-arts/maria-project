@@ -32,12 +32,12 @@ namespace BusinessLayer.Managers
 
 		public async Task<Column> CreateAsync(Column entity)
 		{
-			var parentBoard = _context.Boards.FirstOrDefault(b => b.Id == entity.BoardId);
+			var parentBoard = _context.Boards.FirstOrDefault(b => b.Id == entity.ColumnPosition.BoardId);
 			var creator     = _context.Users.FirstOrDefault(u => u.Id == entity.CreatorId);
 
 			if (parentBoard == null || creator == null)
 				throw new InvalidOperationException(
-						$"Column data is invalid. Column.BoardId = {entity.BoardId}, Column.CreatorId = {entity.CreatorId}");
+						$"Column data is invalid. Column.BoardId = {entity.ColumnPosition.BoardId}, Column.CreatorId = {entity.CreatorId}");
 
 			var history = await _historyManager.CreateHistoryAsync();
 			entity.History = history;

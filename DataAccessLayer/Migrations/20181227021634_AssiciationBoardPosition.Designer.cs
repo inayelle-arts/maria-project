@@ -3,15 +3,17 @@ using System;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20181227021634_AssiciationBoardPosition")]
+    partial class AssiciationBoardPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +104,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("BoardId");
+
                     b.Property<int>("CreatorId");
 
                     b.Property<int>("HistoryId");
@@ -112,32 +116,13 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BoardId");
+
                     b.HasIndex("CreatorId");
 
                     b.HasIndex("HistoryId");
 
                     b.ToTable("Columns");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.ColumnPosition", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BoardId");
-
-                    b.Property<int>("ColumnId");
-
-                    b.Property<int>("Position");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("ColumnId")
-                        .IsUnique();
-
-                    b.ToTable("ColumnPositions");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Comment", b =>
@@ -667,6 +652,11 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.Column", b =>
                 {
+                    b.HasOne("DataAccessLayer.Entities.Board", "Board")
+                        .WithMany("Columns")
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("DataAccessLayer.Entities.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
@@ -675,19 +665,6 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("DataAccessLayer.Entities.History", "History")
                         .WithMany()
                         .HasForeignKey("HistoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.ColumnPosition", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.Board", "Board")
-                        .WithMany("ColumnPositions")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DataAccessLayer.Entities.Column", "Column")
-                        .WithOne("ColumnPosition")
-                        .HasForeignKey("DataAccessLayer.Entities.ColumnPosition", "ColumnId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

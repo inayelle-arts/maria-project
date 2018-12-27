@@ -80,20 +80,44 @@ namespace TestApi.Services.Classes
 					Project = project
 			};
 
-			var column = new Column
+			var column1 = new Column
 			{
 					Name    = "col1",
-					Board   = board,
 					Creator = user,
 					History = new History()
 			};
+
+		    var column2 = new Column()
+		    {
+		        Name = "col2",
+		        Creator = user,
+		        History = new History()
+		    };
+
+            ColumnPosition cp1 = new ColumnPosition()
+            {
+                Board = board,
+                Column = column1,
+                Position = 1
+            };
+
+		    ColumnPosition cp2 = new ColumnPosition()
+		    {
+		        Board = board,
+		        Column = column2,
+		        Position = 2
+		    };
+
+            column1.ColumnPosition = cp1;
+		    column2.ColumnPosition = cp2;
+
 
 			var history = new History();
 
 			var t1 = new Task
 			{
 					History     = history,
-					Column      = column,
+					Column      = column1,
 					Name        = "t1",
 					Description = "the first task",
 					Code        = "0001",
@@ -103,7 +127,7 @@ namespace TestApi.Services.Classes
 			var t2 = new Task
 			{
 					History     = history,
-					Column      = column,
+					Column      = column1,
 					Name        = "t2",
 					Description = "the second task",
 					Code        = "0002",
@@ -128,7 +152,10 @@ namespace TestApi.Services.Classes
 			project.Company         = company;
 			project.RequirementList = requirementList;
 
-			_context.Users.Add(user);
+
+		    _context.ColumnPositions.Add(cp1);
+		    _context.ColumnPositions.Add(cp2);
+            _context.Users.Add(user);
 			_context.Companies.Add(company);
 			_context.Boards.Add(board);
 			_context.Projects.Add(project);

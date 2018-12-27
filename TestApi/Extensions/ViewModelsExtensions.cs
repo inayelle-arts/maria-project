@@ -12,7 +12,6 @@ namespace TestApi.Extensions
 			return new Column
 			{
 					Name      = createColumnViewModel.Name,
-					BoardId   = createColumnViewModel.BoardId,
 					CreatorId = createColumnViewModel.CreatorId
 			};
 		}

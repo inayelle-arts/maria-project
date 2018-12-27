@@ -46,12 +46,12 @@ namespace BusinessLayer.Managers
 
 		public async Task UpdateAsync(Board board)
 		{
-			var columns = _context.Columns.Where(c => c.BoardId == board.Id).ToList();
+			var columnPositions = _context.ColumnPositions.Where(cp => cp.BoardId == board.Id).ToList();
 			var constraints =
 					_context.BoardConstraints.Where(c => c.OwnerId == board.Id).ToList();
 			var labels = _context.Labels.Where(l => l.BoardId == board.Id).ToList();
 
-			board.Columns     = columns;
+			board.ColumnPositions     = columnPositions;
 			board.Constraints = constraints;
 			board.Labels      = labels;
 

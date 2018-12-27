@@ -18,11 +18,10 @@ namespace DataAccessLayer.Entities
 		[MaxLength(255)]
 		public string Name { get; set; }
 
-		public virtual History History   { get; set; }
-		public         int     HistoryId { get; set; }
+	    public virtual ColumnPosition ColumnPosition { get; set; }
 
-		public virtual Board Board   { get; set; }
-		public         int   BoardId { get; set; }
+	    public virtual History History   { get; set; }
+		public         int     HistoryId { get; set; }
 
 		public virtual User Creator   { get; set; }
 		public         int  CreatorId { get; set; }
