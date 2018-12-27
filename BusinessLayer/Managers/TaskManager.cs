@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Constraints;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Models;
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace BusinessLayer.Managers
@@ -15,11 +18,13 @@ namespace BusinessLayer.Managers
 		private readonly HistoryManager         _historyManager;
 		private readonly IRepository<BoardTask> _taskRepository;
 
-		public TaskManager(DefaultContext context, HistoryManager historyManager, IRepository<BoardTask> taskRepository)
+		public TaskManager(DefaultContext         context,
+		                   HistoryManager         historyManager,
+		                   IRepository<BoardTask> taskRepository)
 		{
-			_context        = context;
-			_historyManager = historyManager;
-			_taskRepository = taskRepository;
+			_context           = context;
+			_historyManager    = historyManager;
+			_taskRepository    = taskRepository;
 		}
 
 		/// <summary>
@@ -57,7 +62,12 @@ namespace BusinessLayer.Managers
 
 		public async Task UpdateAsync(BoardTask task)
 		{
-			var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
+		    if (task == null)
+		    {
+                throw  new ArgumentNullException(nameof(task));
+		    }
+
+		    var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
 			var constraints =
 					_context.TaskConstraints.Where(c => c.OwnerId == task.Id).ToList();
 
@@ -85,6 +95,11 @@ namespace BusinessLayer.Managers
 		{
 			var query = await _taskRepository.GetAllAsync();
 			return query.ToList();
+		}
+
+		public async Task MoveTaskAsync(BoardTask task)
+		{
+			await _taskRepository.UpdateAsync(task);
 		}
 	}
 }
