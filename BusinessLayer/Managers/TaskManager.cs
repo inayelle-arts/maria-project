@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Constraints;
 using BusinessLayer.Interfaces;
 using DataAccessLayer;
+using DataAccessLayer.Entities.Constraints;
 using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using BoardTask = DataAccessLayer.Entities.Task;
 
 namespace BusinessLayer.Managers
 {
-	public class TaskManager : ICrudManager<BoardTask, int>
-	{
-		private readonly DefaultContext         _context;
-		private readonly HistoryManager         _historyManager;
-		private readonly IRepository<BoardTask> _taskRepository;
+    public class TaskManager : ICrudManager<BoardTask, int>
+    {
+        private readonly DefaultContext _context;
+        private readonly HistoryManager _historyManager;
+        private readonly IRepository<BoardTask> _taskRepository;
 
-		public TaskManager(DefaultContext context, HistoryManager historyManager, IRepository<BoardTask> taskRepository)
-		{
-			_context        = context;
-			_historyManager = historyManager;
-			_taskRepository = taskRepository;
-		}
+        public TaskManager(DefaultContext context,
+                           HistoryManager historyManager,
+                           IRepository<BoardTask> taskRepository)
+        {
+            _context = context;
+            _historyManager = historyManager;
+            _taskRepository = taskRepository;
+        }
 
         /// <summary>
         ///     Creates Task from Task instance based on TaskViewModel
@@ -28,59 +33,80 @@ namespace BusinessLayer.Managers
         /// <param name="task"></param>
         /// <exception cref="InvalidOperationException">throws when user dibil</exception>
         public async Task<BoardTask> CreateAsync(BoardTask task)
-		{
-			var parentColumn = _context.Columns.FirstOrDefault(c => c.Id == task.ColumnId);
-			var creator      = _context.Users.FirstOrDefault(c => c.Id == task.CreatorId);
+        {
+            var parentColumn = _context.Columns.FirstOrDefault(c => c.Id == task.ColumnId);
+            var creator = _context.Users.FirstOrDefault(c => c.Id == task.CreatorId);
 
-			if (parentColumn == null || creator == null)
-				throw new InvalidOperationException(
-						$"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}");
+            if (parentColumn == null || creator == null)
+                throw new InvalidOperationException(
+                        $"Task data is invalid. Task.ColumnId = {task.ColumnId}, Task.CreatorId = {task.CreatorId}");
 
-			var taskHistory = await _historyManager.CreateHistoryAsync();
-			task.HistoryId = taskHistory.Id;
-			task.Code      = GenerateCode(task);
+            var taskHistory = await _historyManager.CreateHistoryAsync();
+            task.HistoryId = taskHistory.Id;
+            task.Code = GenerateCode(task);
 
-			await _context.Tasks.AddAsync(task);
-			await _context.SaveChangesAsync();
+            await _context.Tasks.AddAsync(task);
+            await _context.SaveChangesAsync();
 
-			return task;
-		}
+            return task;
+        }
 
-		public async Task<BoardTask> GetAsync(int id)
-		{
-			return await _taskRepository.GetAsync(id);
-		}
+        public async Task<BoardTask> GetAsync(int id)
+        {
+            return await _taskRepository.GetAsync(id);
+        }
 
-		public async Task UpdateAsync(BoardTask task)
-		{
-			var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
-			var constraints =
-					_context.TaskConstraints.Where(c => c.OwnerId == task.Id).ToList();
+        public async Task UpdateAsync(BoardTask task)
+        {
+            if (task == null)
+            {
+                throw new ArgumentNullException(nameof(task));
+            }
 
-			task.Comments    = comments;
-			task.Constraints = constraints;
+            var comments = _context.Comments.Where(c => c.TaskId == task.Id).ToList();
+            var constraints =
+                    _context.TaskConstraints.Where(c => c.OwnerId == task.Id).ToList();
 
-			await _taskRepository.UpdateAsync(task);
-		}
+            task.Comments = comments;
+            task.Constraints = constraints;
 
-		public async Task DeleteAsync(int id)
-		{
-			await _taskRepository.DeleteAsync(id);
-		}
+            await _taskRepository.UpdateAsync(task);
+        }
 
-		private string GenerateCode(BoardTask task)
-		{
-			//todo: create code generating algorithm
-			return _context.Tasks
-			               .Select(t => t.Id)
-			               .Max()
-			               .ToString();
-		}
+        public async Task DeleteAsync(int id)
+        {
+            await _taskRepository.DeleteAsync(id);
+        }
 
-		public async Task<List<BoardTask>> GetAllAsync()
-		{
-			var query = await _taskRepository.GetAllAsync();
-			return query.ToList();
-		}
-	}
+        private string GenerateCode(BoardTask task)
+        {
+            //todo: create code generating algorithm
+            return _context.Tasks
+                           .Select(t => t.Id)
+                           .Max()
+                           .ToString();
+        }
+
+        public async Task<List<BoardTask>> GetAllAsync()
+        {
+            var query = await _taskRepository.GetAllAsync();
+            return query.ToList();
+        }
+
+        public async Task MoveTaskAsync(BoardTask task)
+        {
+            await _taskRepository.UpdateAsync(task);
+        }
+
+        public async Task AddConstraintAsync(SequentialTaskConstraintEntity constraintEntity)
+        {
+            if (constraintEntity.OwnerId == constraintEntity.ParentTaskId)
+            {
+                throw  new ArgumentException("Invalid request");
+            }
+
+            await _context.TaskConstraints.AddAsync(constraintEntity);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

@@ -28,7 +28,7 @@ namespace TestApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] BoardViewModel model)
+		public async Task<ActionResult<ResponseResultSet<int>>> Create([FromBody] CreateBoardViewModel model)
 		{
 			var response = new ResponseResultSet<int>();
 

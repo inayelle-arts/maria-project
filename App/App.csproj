@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
 	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	<LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +39,7 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="Static\img" />
+    <Folder Include="Static\styles\css" />
   </ItemGroup>
 
   <ItemGroup>
